@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>WeatherForecastingApp.xcscheme</key>
+		<key>WeatherForecast.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,7 +12,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>C973E4071E26752300B797F2</key>
+		<key>C92C05B31E28917B003F060D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C92C05C71E28917B003F060D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

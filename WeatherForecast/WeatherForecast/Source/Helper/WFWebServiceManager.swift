@@ -37,7 +37,7 @@ class WebServiceManager {
     var searchedCity = [SearchedCity]()
     typealias JSONFormat = [String: AnyObject]
     
-    func getSeachedCities(text: String, completion: (searchedCity: [String: AnyObject]?, error: NSError?) -> Void) {
+    func getSeachedCities(text: String, completion: (searchedCity: [SearchedCity]?, error: NSError?) -> Void) {
         
         let session = NSURLSession.sharedSession()
         let dataTask = session.dataTaskWithURL(NSURL(string: "\(WeatherAPI.URLs.urlString(.SeachCity)())?key=\(WeatherAPI.weatherAPIKey)&q=\(text)&format=json") ?? NSURL()) { (data, response, error) in
@@ -46,11 +46,11 @@ class WebServiceManager {
                 do {
                     let searchCities = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! JSONFormat
                     
-//                    if let cities = searchCities["search_api"]?["result"] as? NSArray {
-//                        self.searchedCity = cities.map {SearchedCity(cityName: $0["areaName"]!![0]["value"] as? String ?? "", cityRegion: $0["region"]!![0]["value"] as? String ?? "", cityCountry: $0["country"]!![0]["value"] as? String ?? "")}
-//                    }
+                    if let cities = searchCities["search_api"]?["result"] as? NSArray {
+                        self.searchedCity = cities.map {SearchedCity(cityName: $0["areaName"]!![0]["value"] as? String ?? "", cityRegion: $0["region"]!![0]["value"] as? String ?? "", cityCountry: $0["country"]!![0]["value"] as? String ?? "")}
+                    }
                     
-                    completion(searchedCity: searchCities, error: nil)
+                    completion(searchedCity: self.searchedCity, error: nil)
                     
                 } catch let jsonError as NSError {
                     completion(searchedCity: nil, error: jsonError)

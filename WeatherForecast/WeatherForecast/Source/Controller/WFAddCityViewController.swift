@@ -62,7 +62,7 @@ extension WFAddCityViewController: UISearchBarDelegate {
         WebServiceManager().getSeachedCities(text) {[weak self] (searchedCity, error) in
             if let searchedCity = searchedCity where error == nil {
                 print(searchedCity)
-                self?.searchedCity = SearchedCity.constractModel(searchedCity)
+                self?.searchedCity = searchedCity
                 dispatch_async(dispatch_get_main_queue(), {
                     self?.tableView.reloadData()
                 })

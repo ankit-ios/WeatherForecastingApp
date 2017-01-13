@@ -26,11 +26,11 @@ struct SearchedCity {
         self.cityCountry = cityCountry
     }
     
-    static func constractModel(object: [String: AnyObject]) -> [SearchedCity] {
-        
-        let ss: [SearchedCity] = object.map{SearchedCity(cityName: $0["areaName"]![0]["value"] as? String ?? "", cityRegion: $0["region"]![0]["value"] as? String ?? "", cityCountry: $0["country"]![0]["value"] as? String ?? "")}
-        return ss
-    }
+//    static func constractModel(object: [String: AnyObject]) -> [SearchedCity] {
+//        
+//        let ss: [SearchedCity] = object.map{SearchedCity(cityName: $0["areaName"]![0]["value"] as? String ?? "", cityRegion: $0["region"]![0]["value"] as? String ?? "", cityCountry: $0["country"]![0]["value"] as? String ?? "")}
+//        return ss
+//    }
 }
 
 

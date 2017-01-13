@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  WeatherForecastingApp
+//  WeatherForecast
 //
-//  Created by Ankit Sharma on 11/01/17.
+//  Created by Ankit Sharma on 13/01/17.
 //  Copyright © 2017 Robosoft Technology. All rights reserved.
 //
 
