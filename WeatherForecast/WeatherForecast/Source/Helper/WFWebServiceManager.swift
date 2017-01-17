@@ -63,4 +63,14 @@ struct WFWebServiceManager {
         
     }
     
+    static func getWeatherIcon(urlString: String, completion: (imageData: NSData?, error: NSError?) -> Void) {
+        Alamofire.request(.GET, urlString).responseData { (request, respose, result) in
+            if let respose = respose where respose.statusCode == 200 {
+            completion(imageData: result.value, error: nil)
+            } else {
+                completion(imageData: nil, error: nil)
+            }
+        }
+    }
+    
 }

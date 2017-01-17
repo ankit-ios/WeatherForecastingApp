@@ -9,12 +9,12 @@
 import UIKit
 import SwiftyJSON
 
+enum TempUnit {
+    case celsius
+    case fahrenheit
+}
+
 class WFCityWeatherListVC: UIViewController {
-    
-    enum TempUnit {
-        case celsius
-        case fahrenheit
-    }
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tempUnitButtonOutlet: UIButton!
@@ -50,7 +50,12 @@ class WFCityWeatherListVC: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "WeatherForecastSegue" {
-            
+            if let VC = segue.destinationViewController as? WFCityWeatherViewController {
+                if let indexPath = tableView.indexPathForSelectedRow {
+                    VC.city = cities[indexPath.row]
+                    VC.tempUnit = tempUnit
+                }
+            }
             
         } else if segue.identifier == "AddCitySegue" {
             
@@ -83,7 +88,7 @@ extension WFCityWeatherListVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier("CityWeatherCell", forIndexPath: indexPath) as? WFCityWeatherListTableViewCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier("CityWeatherListCell", forIndexPath: indexPath) as? WFCityWeatherListTableViewCell {
             cell.cityNameLabel.text = cities[indexPath.row].cityName
             
             let temp = cities[indexPath.row].currentWeather

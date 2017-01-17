@@ -20,9 +20,13 @@ struct WFCity {
         if let object = object {
             
             self.cityName = object["request"]!![0]["query"] as? String ?? ""
+            
             var currentWeather = WFCurrentWeather()
             currentWeather.currentTempInCelsius = object["current_condition"]!![0]["temp_C"] as? String ?? ""
             currentWeather.currentTempInFahrenheit = object["current_condition"]!![0]["temp_F"] as? String ?? ""
+            currentWeather.currentWeatherIconUrl = object["current_condition"]!![0]["weatherIconUrl"]!![0]["value"] as? String ?? ""
+            currentWeather.currentWeatherDesc = object["current_condition"]!![0]["weatherDesc"]!![0]["value"] as? String ?? ""
+            
             self.currentWeather = currentWeather
             
             var forecastWeather = [WFWeather]()
@@ -47,17 +51,13 @@ struct WFCity {
             self.cityName = ""
             self.currentWeather = WFCurrentWeather()
             self.forecastWeather = [WFWeather]()
-            
         }
     }
     
     static func constractModelWithJson(json: AnyObject) -> WFCity {
         
-        
         let cityData = json["data"]
         print(cityData!)
-       // self.init(object: cityData)
-        
         return WFCity(object: cityData)
     }
 }

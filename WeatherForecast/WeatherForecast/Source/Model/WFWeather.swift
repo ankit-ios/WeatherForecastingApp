@@ -29,9 +29,13 @@ struct WFWeather {
 struct WFCurrentWeather {
     var currentTempInCelsius: String
     var currentTempInFahrenheit: String
+    var currentWeatherIconUrl: String
+    var currentWeatherDesc: String
     
     init() {
         self.currentTempInCelsius = ""
         self.currentTempInFahrenheit = ""
+        self.currentWeatherIconUrl = ""
+        self.currentWeatherDesc = ""
     }
 }

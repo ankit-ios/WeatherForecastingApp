@@ -19,7 +19,6 @@ class WFAddCityViewController: UIViewController {
     var searchDelayed: NSTimer?
     var searchedCity = [WFSearchedCity]()
     weak var delegate: WFAddCityViewControllerProtocol?
-    
 }
 
 extension WFAddCityViewController: UITableViewDataSource,UITableViewDelegate {
