@@ -6,10 +6,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--City Weather ListVC-->
         <scene sceneID="8On-Ui-pC4">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="4zd-A2-9RX" customClass="ViewController" customModule="WeatherForecast" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="4zd-A2-9RX" customClass="WFCityWeatherListVC" customModule="WeatherForecast" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="af8-f4-78R"/>
                         <viewControllerLayoutGuide type="bottom" id="yG9-fZ-29n"/>
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ArZ-Gv-7ma">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CityWeatherCell" id="ArZ-Gv-7ma" customClass="WFCityWeatherListTableViewCell" customModule="WeatherForecast" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ArZ-Gv-7ma" id="8oz-er-bJO">
@@ -30,39 +30,54 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Udupi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcX-Cs-K1L">
-                                                    <rect key="frame" x="270" y="11" width="60" height="21"/>
+                                                    <rect key="frame" x="16" y="9" width="60" height="26"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Gt-yD-9cl">
+                                                    <rect key="frame" x="96" y="9" width="28" height="26"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="EcX-Cs-K1L" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8oz-er-bJO" secondAttribute="leading" constant="20" id="9m2-0E-KNA"/>
-                                                <constraint firstItem="EcX-Cs-K1L" firstAttribute="top" secondItem="8oz-er-bJO" secondAttribute="top" constant="11" id="AvA-FG-hhu"/>
-                                                <constraint firstAttribute="bottom" secondItem="EcX-Cs-K1L" secondAttribute="bottom" constant="11" id="Frh-o3-bAV"/>
-                                                <constraint firstItem="EcX-Cs-K1L" firstAttribute="centerX" secondItem="8oz-er-bJO" secondAttribute="centerX" id="WA0-pU-LCp"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="EcX-Cs-K1L" secondAttribute="trailing" constant="20" id="xrx-Rd-zSi"/>
+                                                <constraint firstItem="6Gt-yD-9cl" firstAttribute="leading" secondItem="EcX-Cs-K1L" secondAttribute="trailing" constant="20" id="9h5-AK-a7j"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="6Gt-yD-9cl" secondAttribute="trailing" constant="8" id="DKX-nQ-ebk"/>
+                                                <constraint firstItem="EcX-Cs-K1L" firstAttribute="leading" secondItem="8oz-er-bJO" secondAttribute="leadingMargin" constant="8" id="OrX-ha-pkZ"/>
+                                                <constraint firstItem="6Gt-yD-9cl" firstAttribute="centerY" secondItem="8oz-er-bJO" secondAttribute="centerY" id="Wgz-hy-bmF"/>
+                                                <constraint firstItem="EcX-Cs-K1L" firstAttribute="centerY" secondItem="8oz-er-bJO" secondAttribute="centerY" id="pR3-WL-7gX"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="fc6-MK-Egi" kind="show" id="TCY-uh-use">
+                                            <outlet property="cityNameLabel" destination="EcX-Cs-K1L" id="KJI-1m-tyP"/>
+                                            <outlet property="cityWeatherLabel" destination="6Gt-yD-9cl" id="Gyy-1n-A27"/>
+                                            <segue destination="fc6-MK-Egi" kind="show" identifier="WeatherForecastSegue" id="TCY-uh-use">
                                                 <nil key="action"/>
                                             </segue>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="4zd-A2-9RX" id="l1q-NJ-w0I"/>
+                                    <outlet property="delegate" destination="4zd-A2-9RX" id="70m-d5-0J4"/>
+                                </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCa-mm-Es8">
-                                <rect key="frame" x="548" y="562" width="32" height="30"/>
-                                <state key="normal" title="C / F"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eUl-wW-L1W">
                                 <rect key="frame" x="20" y="564" width="55" height="30"/>
                                 <state key="normal" title="add city"/>
                                 <connections>
-                                    <segue destination="zvj-KB-4OR" kind="show" id="HsG-fZ-nxg">
+                                    <segue destination="zvj-KB-4OR" kind="show" identifier="AddCitySegue" id="HsG-fZ-nxg">
                                         <nil key="action"/>
                                     </segue>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCa-mm-Es8">
+                                <rect key="frame" x="533" y="562" width="47" height="30"/>
+                                <state key="normal" title="ºC / ºF"/>
+                                <connections>
+                                    <action selector="changeTempUnit:" destination="4zd-A2-9RX" eventType="touchUpInside" id="ZCb-Zg-Wdg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -81,6 +96,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xeZ-M3-Siz"/>
+                    <connections>
+                        <outlet property="tableView" destination="VQl-SY-RLz" id="2zd-49-vIm"/>
+                        <outlet property="tempUnitButtonOutlet" destination="XCa-mm-Es8" id="2Ha-4G-glu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nCW-Jd-foc" sceneMemberID="firstResponder"/>
             </objects>

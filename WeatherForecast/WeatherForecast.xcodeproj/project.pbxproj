@@ -14,8 +14,12 @@
 		C92C05C21E28917B003F060D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C92C05C01E28917B003F060D /* LaunchScreen.storyboard */; };
 		C92C05CD1E28917B003F060D /* WeatherForecastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92C05CC1E28917B003F060D /* WeatherForecastTests.swift */; };
 		C92C05E21E2893C7003F060D /* WFWebServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92C05E11E2893C7003F060D /* WFWebServiceManager.swift */; };
-		C92C05E61E2893FB003F060D /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92C05E51E2893FB003F060D /* City.swift */; };
+		C92C05E61E2893FB003F060D /* WFSearchedCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92C05E51E2893FB003F060D /* WFSearchedCity.swift */; };
 		C92C05EA1E289410003F060D /* WFAddCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92C05E91E289410003F060D /* WFAddCityViewController.swift */; };
+		C97D95591E2CC2D00087516D /* WFCityWeatherListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D95581E2CC2D00087516D /* WFCityWeatherListVC.swift */; };
+		C97D955B1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D955A1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift */; };
+		C97D955D1E2CEF920087516D /* WFCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D955C1E2CEF920087516D /* WFCity.swift */; };
+		C97D955F1E2CF03D0087516D /* WFWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D955E1E2CF03D0087516D /* WFWeather.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,8 +46,12 @@
 		C92C05CC1E28917B003F060D /* WeatherForecastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastTests.swift; sourceTree = "<group>"; };
 		C92C05CE1E28917B003F060D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C92C05E11E2893C7003F060D /* WFWebServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFWebServiceManager.swift; path = Source/Helper/WFWebServiceManager.swift; sourceTree = "<group>"; };
-		C92C05E51E2893FB003F060D /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = City.swift; path = Source/Model/City.swift; sourceTree = "<group>"; };
+		C92C05E51E2893FB003F060D /* WFSearchedCity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFSearchedCity.swift; path = Source/Model/WFSearchedCity.swift; sourceTree = "<group>"; };
 		C92C05E91E289410003F060D /* WFAddCityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFAddCityViewController.swift; path = Source/Controller/WFAddCityViewController.swift; sourceTree = "<group>"; };
+		C97D95581E2CC2D00087516D /* WFCityWeatherListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFCityWeatherListVC.swift; path = Source/Controller/WFCityWeatherListVC.swift; sourceTree = "<group>"; };
+		C97D955A1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFCityWeatherListTableViewCell.swift; path = Source/View/WFCityWeatherListTableViewCell.swift; sourceTree = "<group>"; };
+		C97D955C1E2CEF920087516D /* WFCity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFCity.swift; path = Source/Model/WFCity.swift; sourceTree = "<group>"; };
+		C97D955E1E2CF03D0087516D /* WFWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFWeather.swift; path = Source/Model/WFWeather.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +170,9 @@
 		C92C05DB1E289224003F060D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C92C05E51E2893FB003F060D /* City.swift */,
+				C97D955C1E2CEF920087516D /* WFCity.swift */,
+				C97D955E1E2CF03D0087516D /* WFWeather.swift */,
+				C92C05E51E2893FB003F060D /* WFSearchedCity.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -178,6 +188,7 @@
 		C92C05DD1E289242003F060D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C97D955A1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -185,6 +196,7 @@
 		C92C05DE1E289245003F060D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C97D95581E2CC2D00087516D /* WFCityWeatherListVC.swift */,
 				C92C05E91E289410003F060D /* WFAddCityViewController.swift */,
 			);
 			name = Controller;
@@ -342,10 +354,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C97D955B1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift in Sources */,
 				C92C05B81E28917B003F060D /* AppDelegate.swift in Sources */,
 				C92C05E21E2893C7003F060D /* WFWebServiceManager.swift in Sources */,
 				C92C05EA1E289410003F060D /* WFAddCityViewController.swift in Sources */,
-				C92C05E61E2893FB003F060D /* City.swift in Sources */,
+				C97D955D1E2CEF920087516D /* WFCity.swift in Sources */,
+				C97D95591E2CC2D00087516D /* WFCityWeatherListVC.swift in Sources */,
+				C92C05E61E2893FB003F060D /* WFSearchedCity.swift in Sources */,
+				C97D955F1E2CF03D0087516D /* WFWeather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,6 +555,7 @@
 				C92C05D31E28917B003F060D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C92C05D41E28917B003F060D /* Build configuration list for PBXNativeTarget "WeatherForecastTests" */ = {
 			isa = XCConfigurationList;
@@ -547,6 +564,7 @@
 				C92C05D61E28917B003F060D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

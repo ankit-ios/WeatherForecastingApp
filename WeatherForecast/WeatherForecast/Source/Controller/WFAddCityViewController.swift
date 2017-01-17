@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import SwiftyJSON
+
+protocol WFAddCityViewControllerProtocol: class {
+    func cityAdded(city: WFCity)
+}
 
 class WFAddCityViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     var searchDelayed: NSTimer?
-    var searchedCity = [SearchedCity]()
-    
+    var searchedCity = [WFSearchedCity]()
+    weak var delegate: WFAddCityViewControllerProtocol?
     
 }
 
@@ -36,7 +41,15 @@ extension WFAddCityViewController: UITableViewDataSource,UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         view.endEditing(true)
-        
+        let cityName = "\(searchedCity[indexPath.row].cityName),\(searchedCity[indexPath.row].cityRegion)"
+        let urlString = cityName.stringByReplacingOccurrencesOfString(" ", withString: "+")
+        WFWebServiceManager.getCityWeather(urlString) {[weak self] (cityWeather, error) in
+            
+            if let cityWeather = cityWeather {
+                self?.delegate?.cityAdded(WFCity.constractModelWithJson(cityWeather))
+            }
+        }
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
@@ -59,14 +72,15 @@ extension WFAddCityViewController: UISearchBarDelegate {
     
     func searchCity(text: String) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        WebServiceManager().getSeachedCities(text) {[weak self] (searchedCity, error) in
-            if let searchedCity = searchedCity where error == nil {
-                print(searchedCity)
-                self?.searchedCity = searchedCity
+        WFWebServiceManager.getSeachedCities(text) {[weak self] (response, error) in
+            
+            if let response = response {
+                self?.searchedCity = WFSearchedCity.constractModelWithJson(response)
                 dispatch_async(dispatch_get_main_queue(), {
                     self?.tableView.reloadData()
                 })
             }
+            
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
     }

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 
 
 struct WeatherAPI {
@@ -32,56 +32,35 @@ struct WeatherAPI {
     }
 }
 
-class WebServiceManager {
+struct WFWebServiceManager {
     
-    var searchedCity = [SearchedCity]()
-    typealias JSONFormat = [String: AnyObject]
-    
-    func getSeachedCities(text: String, completion: (searchedCity: [SearchedCity]?, error: NSError?) -> Void) {
+    static func getSeachedCities(text: String, completion: (searchedCity: AnyObject?, error: NSError?) -> Void) {
         
-        let session = NSURLSession.sharedSession()
-        let dataTask = session.dataTaskWithURL(NSURL(string: "\(WeatherAPI.URLs.urlString(.SeachCity)())?key=\(WeatherAPI.weatherAPIKey)&q=\(text)&format=json") ?? NSURL()) { (data, response, error) in
+        Alamofire.request(.GET, "\(WeatherAPI.URLs.urlString(.SeachCity)())?key=\(WeatherAPI.weatherAPIKey)&q=\(text)&format=json").responseJSON { (request, response, result) in
             
-            if let data = data where error == nil  {
-                do {
-                    let searchCities = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! JSONFormat
-                    
-                    if let cities = searchCities["search_api"]?["result"] as? NSArray {
-                        self.searchedCity = cities.map {SearchedCity(cityName: $0["areaName"]!![0]["value"] as? String ?? "", cityRegion: $0["region"]!![0]["value"] as? String ?? "", cityCountry: $0["country"]!![0]["value"] as? String ?? "")}
-                    }
-                    
-                    completion(searchedCity: self.searchedCity, error: nil)
-                    
-                } catch let jsonError as NSError {
-                    completion(searchedCity: nil, error: jsonError)
-                }
-            }
-            completion(searchedCity: nil, error: nil)
-        }
-        dataTask.resume()
-    }
-    
-    
-    func getCityWeather(cityName: String, completion: (searchedCity: [SearchedCity]?, error: NSError?) -> Void) {
-        
-        let session = NSURLSession.sharedSession()
-        let dataTask = session.dataTaskWithURL(NSURL(string: "\(WeatherAPI.URLs.urlString(.CityWeather)())?key=\(WeatherAPI.weatherAPIKey)&q=\(cityName)&format=json&num_of_days=5&date=today") ?? NSURL()) { (data, response, error) in
-            
-            if let data = data where error == nil  {
-                
-                
-                do {
-                    
-                    let searchCities = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as! JSONFormat
-                    
-                    
-                    completion(searchedCity: self.searchedCity, error: nil)
-                    
-                } catch let jsonError as NSError {
-                    completion(searchedCity: nil, error: jsonError)
-                }
+            print("\(WeatherAPI.URLs.urlString(.SeachCity)())?key=\(WeatherAPI.weatherAPIKey)&q=\(text)&format=json")
+            if let response = response where response.statusCode == 200 {
+                completion(searchedCity: result.value, error: nil)
+            } else {
+                completion(searchedCity: nil, error: nil)
             }
         }
-        dataTask.resume()
     }
+    
+    static func getCityWeather(cityName: String, completion: (cityWeather: AnyObject?, error: NSError?) -> Void) {
+        print("\(WeatherAPI.URLs.urlString(.SeachCity)())?key=\(WeatherAPI.weatherAPIKey)&q=\(cityName)&format=json")
+
+        Alamofire.request(.GET, "\(WeatherAPI.URLs.urlString(.CityWeather)())?key=\(WeatherAPI.weatherAPIKey)&q=\(cityName)&format=json&num_of_days=5&date=today").responseJSON { (request, response, result) in
+            
+            print("\(WeatherAPI.URLs.urlString(.SeachCity)())?key=\(WeatherAPI.weatherAPIKey)&q=\(cityName)&format=json")
+            
+                        if let response = response where response.statusCode == 200 {
+                            completion(cityWeather: result.value, error: nil)
+                        } else {
+                            completion(cityWeather: nil, error: nil)
+                        }
+        }
+        
+    }
+    
 }
