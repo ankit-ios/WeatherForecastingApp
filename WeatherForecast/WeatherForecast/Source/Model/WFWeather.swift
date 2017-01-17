@@ -16,13 +16,24 @@ struct WFWeather {
     var maxTempInFehrenheit: String
     var minTempInFehrenheit: String
     
-    init() {
+    init(object: AnyObject) {
+        self.date = object["date"] as? String ?? ""
+        self.maxTempInCelsius = object["maxtempC"] as? String ?? ""
+        self.minTempInCelsius = object["mintempC"] as? String ?? ""
+        self.maxTempInFehrenheit = object["maxtempF"] as? String ?? ""
+        self.minTempInFehrenheit = object["mintempF"] as? String ?? ""
+    }
+    
+    static func constractModel(data: [String: AnyObject]) -> [WFWeather] {
         
-        self.date = ""
-        self.maxTempInCelsius = ""
-        self.minTempInCelsius = ""
-        self.maxTempInFehrenheit = ""
-        self.minTempInFehrenheit = ""
+        var weathers = [WFWeather]()
+        let weatherArray = data["weather"] as? NSArray ?? NSArray()
+        
+        for wtr in weatherArray {
+            weathers.append(WFWeather(object: wtr))
+        }
+        
+        return weathers
     }
 }
 
@@ -32,10 +43,18 @@ struct WFCurrentWeather {
     var currentWeatherIconUrl: String
     var currentWeatherDesc: String
     
-    init() {
-        self.currentTempInCelsius = ""
-        self.currentTempInFahrenheit = ""
-        self.currentWeatherIconUrl = ""
-        self.currentWeatherDesc = ""
+    init(object: AnyObject) {
+        self.currentTempInCelsius = object["temp_C"] as? String ?? ""
+        self.currentTempInFahrenheit = object["temp_F"] as? String ?? ""
+        self.currentWeatherIconUrl = object["weatherIconUrl"]!![0]["value"] as? String ?? ""
+        self.currentWeatherDesc = object["weatherDesc"]!![0]["value"] as? String ?? ""
+    }
+    
+    static func constractModel(data: [String: AnyObject]) -> WFCurrentWeather {
+        let currentCondition = data["current_condition"]![0]
+        return WFCurrentWeather(object: currentCondition)
     }
 }
+
+
+

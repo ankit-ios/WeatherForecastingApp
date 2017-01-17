@@ -18,7 +18,7 @@ class WFCityWeatherViewController: UIViewController {
     
     var city: WFCity?
     var tempUnit: TempUnit = .celsius
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupOnLoad()
@@ -41,6 +41,16 @@ class WFCityWeatherViewController: UIViewController {
         }
         tableView.tableFooterView = UIView()
     }
+    
+    func convertDateFormate(date: String) -> String {
+        let dateformatter = NSDateFormatter()
+        
+        dateformatter.dateFormat = "yyyy-mm-dd"
+        let date = dateformatter.dateFromString(date)
+        
+        dateformatter.dateFormat = "dd-mm-yyyy"
+        return dateformatter.stringFromDate(date!)
+    }
 }
 
 extension WFCityWeatherViewController: UITableViewDataSource {
@@ -51,9 +61,13 @@ extension WFCityWeatherViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCellWithIdentifier("CityWeatherCell") as? WFCityWeatherTableViewCell {
-            let weather = city?.forecastWeather[indexPath.row]
-            cell.dateLabel.text = weather?.date
-            cell.tempLabel.text = tempUnit == .celsius ? "\(weather!.maxTempInCelsius) ºC" : "\(weather!.maxTempInFehrenheit) ºF"
+            if let weather = city?.forecastWeather[indexPath.row] {
+                cell.dateLabel.text = convertDateFormate(weather.date ?? "")
+                
+                let tempInCelsius = "\(weather.maxTempInCelsius) ºC / \(weather.minTempInCelsius) ºC"
+                let tempInFehrenheit = "\(weather.maxTempInFehrenheit) ºF / \(weather.minTempInFehrenheit) ºF"
+                cell.tempLabel.text = tempUnit == .celsius ? tempInCelsius : tempInFehrenheit
+            }
             return cell
         }
         

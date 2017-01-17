@@ -33,18 +33,22 @@ class WFCityWeatherListVC: UIViewController {
     
     func setupOnLoad() {
         title = "Weather"
+        tableView.tableFooterView = UIView()
         
-        for cityName in citiesName {
-            WFWebServiceManager.getCityWeather(cityName) { weather, error in
-                
-                print(JSON(weather!))
-                print(error)
-                
-                if let weather = weather where error == nil {
-                    self.cities.append(WFCity.constractModelWithJson(weather))
-                    self.tableView.reloadData()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            
+            for cityName in self.citiesName {
+                WFWebServiceManager.getCityWeather(cityName) { [weak self] weather, error in
+                    if let weather = weather where error == nil {
+                        self?.cities.append(WFCity.constractModel(weather as! [String : AnyObject]))
+                        self?.tableView.reloadData()
+                    }
                 }
             }
+            
+            //            dispatch_async(dispatch_get_main_queue(), {
+            //                self.tableView.reloadData()
+            //            })
         }
     }
     
@@ -72,12 +76,12 @@ class WFCityWeatherListVC: UIViewController {
     }
     
     func changeButtonTextColor() {
-        let myString: NSString = "ºC / ºF"
-        var myMutableString = NSMutableAttributedString()
+        let buttonTitle: NSString = "ºC / ºF"
+        var mutableButtonTitle = NSMutableAttributedString()
         
-        myMutableString = NSMutableAttributedString(string: myString as String)
-        myMutableString.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: tempUnit == .celsius ? NSRange(location:0,length:4) : NSRange(location:3,length:4)) //set attribute
-        tempUnitButtonOutlet.setAttributedTitle(myMutableString, forState: .Normal)
+        mutableButtonTitle = NSMutableAttributedString(string: buttonTitle as String)
+        mutableButtonTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: tempUnit == .celsius ? NSRange(location:0,length:4) : NSRange(location:3,length:4)) //set attribute
+        tempUnitButtonOutlet.setAttributedTitle(mutableButtonTitle, forState: .Normal)
     }
 }
 
@@ -99,16 +103,22 @@ extension WFCityWeatherListVC: UITableViewDataSource, UITableViewDelegate {
         }
         return UITableViewCell()
     }
+    
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            cities.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Middle)
+        }
+    }
 }
 
 extension WFCityWeatherListVC: WFAddCityViewControllerProtocol {
     
     func cityAdded(city: WFCity) {
         cities.append(city)
+        cities = cities.orderedSetValue
         tableView.reloadData()
     }
 }
-
-
-
 

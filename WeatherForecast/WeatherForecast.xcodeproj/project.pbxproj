@@ -22,6 +22,7 @@
 		C97D955F1E2CF03D0087516D /* WFWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D955E1E2CF03D0087516D /* WFWeather.swift */; };
 		C9CC037D1E2DDF830027A732 /* WFCityWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC037C1E2DDF830027A732 /* WFCityWeatherViewController.swift */; };
 		C9CC037F1E2DDFF40027A732 /* WFCityWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC037E1E2DDFF40027A732 /* WFCityWeatherTableViewCell.swift */; };
+		C9E8A8441E2E4C4E00DA9AB6 /* Extensions+WFUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E8A8431E2E4C4E00DA9AB6 /* Extensions+WFUtility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		C97D955E1E2CF03D0087516D /* WFWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFWeather.swift; path = Source/Model/WFWeather.swift; sourceTree = "<group>"; };
 		C9CC037C1E2DDF830027A732 /* WFCityWeatherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFCityWeatherViewController.swift; path = Source/Controller/WFCityWeatherViewController.swift; sourceTree = "<group>"; };
 		C9CC037E1E2DDFF40027A732 /* WFCityWeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFCityWeatherTableViewCell.swift; path = Source/View/WFCityWeatherTableViewCell.swift; sourceTree = "<group>"; };
+		C9E8A8431E2E4C4E00DA9AB6 /* Extensions+WFUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Extensions+WFUtility.swift"; path = "Source/Extension/Extensions+WFUtility.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 		C92C05DA1E28921B003F060D /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C9E8A8421E2E4C1600DA9AB6 /* Extension */,
 				C92C05DB1E289224003F060D /* Model */,
 				C92C05DD1E289242003F060D /* View */,
 				C92C05DE1E289245003F060D /* Controller */,
@@ -206,6 +209,14 @@
 				C92C05E91E289410003F060D /* WFAddCityViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		C9E8A8421E2E4C1600DA9AB6 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C9E8A8431E2E4C4E00DA9AB6 /* Extensions+WFUtility.swift */,
+			);
+			name = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -360,6 +371,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9E8A8441E2E4C4E00DA9AB6 /* Extensions+WFUtility.swift in Sources */,
 				C9CC037D1E2DDF830027A732 /* WFCityWeatherViewController.swift in Sources */,
 				C97D955B1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift in Sources */,
 				C9CC037F1E2DDFF40027A732 /* WFCityWeatherTableViewCell.swift in Sources */,

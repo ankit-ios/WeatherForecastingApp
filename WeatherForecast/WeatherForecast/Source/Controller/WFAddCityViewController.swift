@@ -19,6 +19,15 @@ class WFAddCityViewController: UIViewController {
     var searchDelayed: NSTimer?
     var searchedCity = [WFSearchedCity]()
     weak var delegate: WFAddCityViewControllerProtocol?
+    
+    override func viewDidLoad() {
+        setupOnLoad()
+    }
+    
+    func setupOnLoad() {
+        title = "Search City"
+        tableView.tableFooterView = UIView()
+    }
 }
 
 extension WFAddCityViewController: UITableViewDataSource,UITableViewDelegate {
@@ -40,15 +49,16 @@ extension WFAddCityViewController: UITableViewDataSource,UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         view.endEditing(true)
-        let cityName = "\(searchedCity[indexPath.row].cityName),\(searchedCity[indexPath.row].cityRegion)"
-        let urlString = cityName.stringByReplacingOccurrencesOfString(" ", withString: "+")
-        WFWebServiceManager.getCityWeather(urlString) {[weak self] (cityWeather, error) in
+        
+        let urlString = "\(searchedCity[indexPath.row].cityName),\(searchedCity[indexPath.row].cityRegion)"
+        
+        WFWebServiceManager.getCityWeather(urlString.removeSpace) {[weak self] (cityWeather, error) in
             
             if let cityWeather = cityWeather {
-                self?.delegate?.cityAdded(WFCity.constractModelWithJson(cityWeather))
+                self?.navigationController?.popViewControllerAnimated(true)
+                self?.delegate?.cityAdded(WFCity.constractModel(cityWeather as! [String : AnyObject]))
             }
         }
-        dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

@@ -36,7 +36,9 @@ struct WFWebServiceManager {
     
     static func getSeachedCities(text: String, completion: (searchedCity: AnyObject?, error: NSError?) -> Void) {
         
-        Alamofire.request(.GET, "\(WeatherAPI.URLs.urlString(.SeachCity)())?key=\(WeatherAPI.weatherAPIKey)&q=\(text)&format=json").responseJSON { (request, response, result) in
+        let urlString = "\(WeatherAPI.URLs.urlString(.SeachCity)())?key=\(WeatherAPI.weatherAPIKey)&q=\(text)&format=json"
+        
+        Alamofire.request(.GET, urlString.removeSpace).responseJSON { (request, response, result) in
             
             print("\(WeatherAPI.URLs.urlString(.SeachCity)())?key=\(WeatherAPI.weatherAPIKey)&q=\(text)&format=json")
             if let response = response where response.statusCode == 200 {
@@ -48,29 +50,28 @@ struct WFWebServiceManager {
     }
     
     static func getCityWeather(cityName: String, completion: (cityWeather: AnyObject?, error: NSError?) -> Void) {
-        print("\(WeatherAPI.URLs.urlString(.SeachCity)())?key=\(WeatherAPI.weatherAPIKey)&q=\(cityName)&format=json")
-
-        Alamofire.request(.GET, "\(WeatherAPI.URLs.urlString(.CityWeather)())?key=\(WeatherAPI.weatherAPIKey)&q=\(cityName)&format=json&num_of_days=5&date=today").responseJSON { (request, response, result) in
+       
+        let urlString = "\(WeatherAPI.URLs.urlString(.CityWeather)())?key=\(WeatherAPI.weatherAPIKey)&q=\(cityName)&format=json&num_of_days=5&date=today"
+        
+        Alamofire.request(.GET, urlString.removeSpace).responseJSON { (request, response, result) in
             
             print("\(WeatherAPI.URLs.urlString(.SeachCity)())?key=\(WeatherAPI.weatherAPIKey)&q=\(cityName)&format=json")
             
-                        if let response = response where response.statusCode == 200 {
-                            completion(cityWeather: result.value, error: nil)
-                        } else {
-                            completion(cityWeather: nil, error: nil)
-                        }
+            if let response = response where response.statusCode == 200 {
+                completion(cityWeather: result.value, error: nil)
+            } else {
+                completion(cityWeather: nil, error: nil)
+            }
         }
-        
     }
     
     static func getWeatherIcon(urlString: String, completion: (imageData: NSData?, error: NSError?) -> Void) {
         Alamofire.request(.GET, urlString).responseData { (request, respose, result) in
             if let respose = respose where respose.statusCode == 200 {
-            completion(imageData: result.value, error: nil)
+                completion(imageData: result.value, error: nil)
             } else {
                 completion(imageData: nil, error: nil)
             }
         }
     }
-    
 }
