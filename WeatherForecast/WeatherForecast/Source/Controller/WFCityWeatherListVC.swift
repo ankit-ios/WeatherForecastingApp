@@ -49,7 +49,7 @@ class WFCityWeatherListVC: UIViewController {
             for cityName in self.citiesName {
                 WFWebServiceManager.getCityWeather(cityName) { [weak self] weather, error in
                     if let weather = weather where error == nil {
-                        self?.cities.append(WFCity.constractModel(weather as! [String : AnyObject]))
+                        self?.cities.append(WFCity.constructModel(weather as! [String : AnyObject]))
                         self?.tableView.reloadData()
                     }
                 }

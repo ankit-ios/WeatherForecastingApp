@@ -20,7 +20,7 @@ struct WFSearchedCity {
         self.cityCountry = object["country"]?[0]["value"] as? String ?? ""
     }
     
-    static func constractModel(data: AnyObject) -> [WFSearchedCity] {
+    static func constructModel(data: AnyObject) -> [WFSearchedCity] {
         if let search = data["search_api"] {
             if let result = search?["result"] as? NSArray {
                 

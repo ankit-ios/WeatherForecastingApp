@@ -17,11 +17,11 @@ struct WFCity: Equatable {
     init(object: AnyObject) {
         
             self.cityName = object["request"]!![0]["query"] as? String ?? ""
-            self.currentWeather = WFCurrentWeather.constractModel(object as! [String : AnyObject])
-            self.forecastWeather = WFWeather.constractModel(object as! [String : AnyObject])
+            self.currentWeather = WFCurrentWeather.constructModel(object as! [String : AnyObject])
+            self.forecastWeather = WFWeather.constructModel(object as! [String : AnyObject])
     }
     
-    static func constractModel(data: [String: AnyObject]) -> WFCity {
+    static func constructModel(data: [String: AnyObject]) -> WFCity {
         
         let cityData = data["data"]
         print(cityData!)

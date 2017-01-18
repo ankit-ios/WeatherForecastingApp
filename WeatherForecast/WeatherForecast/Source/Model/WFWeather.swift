@@ -24,7 +24,7 @@ struct WFWeather {
         self.minTempInFehrenheit = object["mintempF"] as? String ?? ""
     }
     
-    static func constractModel(data: [String: AnyObject]) -> [WFWeather] {
+    static func constructModel(data: [String: AnyObject]) -> [WFWeather] {
         let weatherArray = data["weather"] as? NSArray ?? NSArray()
         return weatherArray.map({ object in
             WFWeather(object: object)
@@ -45,7 +45,7 @@ struct WFCurrentWeather {
         self.currentWeatherDesc = object["weatherDesc"]!![0]["value"] as? String ?? ""
     }
     
-    static func constractModel(data: [String: AnyObject]) -> WFCurrentWeather {
+    static func constructModel(data: [String: AnyObject]) -> WFCurrentWeather {
         let currentCondition = data["current_condition"]![0]
         return WFCurrentWeather(object: currentCondition)
     }

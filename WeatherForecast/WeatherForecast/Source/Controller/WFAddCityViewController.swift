@@ -62,7 +62,7 @@ extension WFAddCityViewController: UITableViewDataSource,UITableViewDelegate {
             
             if let cityWeather = cityWeather {
                 self?.navigationController?.popViewControllerAnimated(true)
-                self?.delegate?.cityAdded(WFCity.constractModel(cityWeather as! [String : AnyObject]))
+                self?.delegate?.cityAdded(WFCity.constructModel(cityWeather as! [String : AnyObject]))
             }
         }
     }
@@ -90,7 +90,7 @@ extension WFAddCityViewController: UISearchBarDelegate {
         WFWebServiceManager.getSeachedCities(text) {[weak self] (response, error) in
             
             if let response = response {
-                self?.searchedCity = WFSearchedCity.constractModel(response)
+                self?.searchedCity = WFSearchedCity.constructModel(response)
                 dispatch_async(dispatch_get_main_queue(), {
                     self?.tableView.reloadData()
                 })
