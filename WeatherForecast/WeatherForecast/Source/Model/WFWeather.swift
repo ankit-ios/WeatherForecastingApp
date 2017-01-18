@@ -46,8 +46,8 @@ struct WFCurrentWeather {
     }
     
     static func constructModel(data: [String: AnyObject]) -> WFCurrentWeather {
-        let currentCondition = data["current_condition"]![0]
-        return WFCurrentWeather(object: currentCondition)
+        let currentCondition = data["current_condition"]//![0]
+        return WFCurrentWeather(object: currentCondition![0])
     }
 }
 

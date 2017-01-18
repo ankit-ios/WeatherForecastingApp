@@ -15,7 +15,7 @@ struct WFWebServiceManager {
     
     static func getSeachedCities(text: String, onCompletion: completionHandler) {
       
-        let urlString = WFWeatherAPI.APIs.urlString(.SeachCity(text: text))
+        let urlString = WFWeatherAPI.urlString(.SeachCity(text: text))
         makeHTTPGetRequest(urlString().removeSpace) { response, error in
             onCompletion(response: response, error: error)
         }
@@ -23,7 +23,7 @@ struct WFWebServiceManager {
     
     static func getCityWeather(cityName: String, onCompletion: completionHandler) {
         
-        let urlString = WFWeatherAPI.APIs.urlString(.CityWeather(cityName: cityName))
+        let urlString = WFWeatherAPI.urlString(.CityWeather(cityName: cityName))
         makeHTTPGetRequest(urlString().removeSpace) { response, error in
             onCompletion(response: response, error: error)
         }

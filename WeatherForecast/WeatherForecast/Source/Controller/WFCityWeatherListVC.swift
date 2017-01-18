@@ -20,15 +20,19 @@ class WFCityWeatherListVC: UIViewController {
     @IBOutlet weak var tempUnitButtonOutlet: UIButton!
     
     var cities = [WFCity]()
-    let citiesName = ["mangalore,karnataka", "bangalore", "udupi", "gwalior", "datia"]
+    var citiesName = [String]()
     var tempUnit: TempUnit = .celsius
     
+    let userDefault = {
+        return NSUserDefaults.standardUserDefaults()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupOnLoad()
         tableViewInitialSetup()
         changeButtonTextColor()
+        fetchWeatherInfoOfAllCities()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -38,23 +42,38 @@ class WFCityWeatherListVC: UIViewController {
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: true)
         tableView.setEditing(editing, animated: true)
+        
     }
     
     func setupOnLoad() {
-        title = "Weather"
+        title = kCityWeatherListVCTitle
         navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            
-            for cityName in self.citiesName {
-                WFWebServiceManager.getCityWeather(cityName) { [weak self] weather, error in
-                    if let weather = weather where error == nil {
-                        self?.cities.append(WFCity.constructModel(weather as! [String : AnyObject]))
-                        self?.tableView.reloadData()
-                    }
+        if let citiesName = getCityName() as? [String] {
+            self.citiesName = citiesName.filter({ cityName in
+                return cityName != ""
+            })
+        }
+    }
+    
+    func fetchWeatherInfoOfAllCities() {
+        for cityName in self.citiesName {
+            WFWebServiceManager.getCityWeather(cityName) { [weak self] weather, error in
+                if let weather = weather where error == nil {
+                    self?.cities.append(WFCity.constructModel(weather as! [String : AnyObject]))
+                    self?.tableView.reloadData()
                 }
             }
         }
+    }
+    
+    func saveCityName(object: AnyObject) {
+        userDefault().setObject(citiesName, forKey: kUserDefaultKey)
+        userDefault().synchronize()
+    }
+    
+    func getCityName() -> AnyObject? {
+        return userDefault().objectForKey(kUserDefaultKey)
     }
     
     func tableViewInitialSetup() {
@@ -64,16 +83,14 @@ class WFCityWeatherListVC: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "WeatherForecastSegue" {
+        if segue.identifier == kWeatherforecastSegue {
             if let VC = segue.destinationViewController as? WFCityWeatherViewController {
                 if let indexPath = tableView.indexPathForSelectedRow {
                     VC.city = cities[indexPath.row]
                     VC.tempUnit = tempUnit
                 }
             }
-            
-        } else if segue.identifier == "AddCitySegue" {
-            
+        } else if segue.identifier == kAddCitySegue {
             if let VC = segue.destinationViewController as? WFAddCityViewController {
                 VC.delegate = self
             }
@@ -87,7 +104,7 @@ class WFCityWeatherListVC: UIViewController {
     }
     
     func changeButtonTextColor() {
-        let buttonTitle: NSString = "ºC / ºF"
+        let buttonTitle: NSString = kTempUnitButtonTitle
         var mutableButtonTitle = NSMutableAttributedString()
         
         mutableButtonTitle = NSMutableAttributedString(string: buttonTitle as String)
@@ -103,7 +120,7 @@ extension WFCityWeatherListVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier("CityWeatherListCell", forIndexPath: indexPath) as? WFCityWeatherListTableViewCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(kCityWeatherListCell, forIndexPath: indexPath) as? WFCityWeatherListTableViewCell {
             cell.cityNameLabel.text = cities[indexPath.row].cityName
             
             let temp = cities[indexPath.row].currentWeather
@@ -121,7 +138,12 @@ extension WFCityWeatherListVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
+            
+            //delete from data source
             cities.removeAtIndex(indexPath.row)
+            citiesName.removeAtIndex(indexPath.row)
+            saveCityName(citiesName)
+            
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
@@ -131,7 +153,12 @@ extension WFCityWeatherListVC: WFAddCityViewControllerProtocol {
     
     func cityAdded(city: WFCity) {
         cities.append(city)
-        cities = cities.orderedSetValue
+        cities = cities.removeDuplicate //remove duplicate
+        
+        citiesName.append(city.cityName)
+        citiesName.removeDuplicate//remove duplicate
+        saveCityName(citiesName)
+        
         tableView.reloadData()
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 //Array extension
 extension Array where Element: Equatable {
-    var orderedSetValue: Array {
+    var removeDuplicate: Array {
         return reduce([]){ $0.contains($1) ? $0 : $0 + [$1]}
     }
 }

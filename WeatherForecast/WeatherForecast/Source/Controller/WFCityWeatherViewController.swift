@@ -45,10 +45,10 @@ class WFCityWeatherViewController: UIViewController {
     func convertDateFormate(date: String) -> String {
         let dateformatter = NSDateFormatter()
         
-        dateformatter.dateFormat = "yyyy-mm-dd"
+        dateformatter.dateFormat = kY_M_D
         let date = dateformatter.dateFromString(date)
         
-        dateformatter.dateFormat = "dd-mm-yyyy"
+        dateformatter.dateFormat = kD_M_Y
         return dateformatter.stringFromDate(date!)
     }
 }
@@ -60,7 +60,7 @@ extension WFCityWeatherViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier("CityWeatherCell") as? WFCityWeatherTableViewCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(kCityWeatherCell) as? WFCityWeatherTableViewCell {
             if let weather = city?.forecastWeather[indexPath.row] {
                 cell.dateLabel.text = convertDateFormate(weather.date ?? "")
                 

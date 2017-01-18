@@ -26,7 +26,7 @@ class WFAddCityViewController: UIViewController {
     }
     
     func setupOnLoad() {
-        title = "Search City"
+        title = kAddCityVCTitle
     }
     
     func tableViewInitialSetup() {
@@ -44,7 +44,7 @@ extension WFAddCityViewController: UITableViewDataSource,UITableViewDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCellWithIdentifier("SearchCityCell") {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(kSearchCityCell) {
             let cellLabel = cell.viewWithTag(1) as? UILabel
             let city = searchedCity[indexPath.row]
             cellLabel?.text = "\(city.cityName), \(city.cityRegion), \(city.cityCountry)"
@@ -77,7 +77,7 @@ extension WFAddCityViewController: UISearchBarDelegate {
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         searchDelayed?.invalidate()
-        searchDelayed = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "doDelayedSearch:", userInfo: searchText, repeats: false)
+        searchDelayed = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(WFAddCityViewController.doDelayedSearch(_:)), userInfo: searchText, repeats: false)
     }
     
     func doDelayedSearch(timer: NSTimer) {
