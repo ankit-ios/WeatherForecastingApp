@@ -1,5 +1,5 @@
 //
-//  Extensions+WeatherForecast.swift
+//  Extensions+WFUtility.swift
 //  WeatherForecast
 //
 //  Created by Ankit Sharma on 17/01/17.
