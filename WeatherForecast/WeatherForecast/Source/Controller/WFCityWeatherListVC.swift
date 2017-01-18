@@ -45,10 +45,6 @@ class WFCityWeatherListVC: UIViewController {
                     }
                 }
             }
-            
-            //            dispatch_async(dispatch_get_main_queue(), {
-            //                self.tableView.reloadData()
-            //            })
         }
     }
     
