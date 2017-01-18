@@ -22,11 +22,17 @@ class WFAddCityViewController: UIViewController {
     
     override func viewDidLoad() {
         setupOnLoad()
+        tableViewInitialSetup()
     }
     
     func setupOnLoad() {
         title = "Search City"
+    }
+    
+    func tableViewInitialSetup() {
         tableView.tableFooterView = UIView()
+        tableView.estimatedRowHeight = 50.0
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
 }
 
@@ -84,7 +90,7 @@ extension WFAddCityViewController: UISearchBarDelegate {
         WFWebServiceManager.getSeachedCities(text) {[weak self] (response, error) in
             
             if let response = response {
-                self?.searchedCity = WFSearchedCity.constractModelWithJson(response)
+                self?.searchedCity = WFSearchedCity.constractModel(response)
                 dispatch_async(dispatch_get_main_queue(), {
                     self?.tableView.reloadData()
                 })

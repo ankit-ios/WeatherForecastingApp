@@ -25,15 +25,10 @@ struct WFWeather {
     }
     
     static func constractModel(data: [String: AnyObject]) -> [WFWeather] {
-        
-        var weathers = [WFWeather]()
         let weatherArray = data["weather"] as? NSArray ?? NSArray()
-        
-        for wtr in weatherArray {
-            weathers.append(WFWeather(object: wtr))
-        }
-        
-        return weathers
+        return weatherArray.map({ object in
+            WFWeather(object: object)
+        })
     }
 }
 

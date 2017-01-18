@@ -27,13 +27,22 @@ class WFCityWeatherListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupOnLoad()
+        tableViewInitialSetup()
         changeButtonTextColor()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        setEditing(false, animated: true)
+    }
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: true)
+        tableView.setEditing(editing, animated: true)
+    }
     
     func setupOnLoad() {
         title = "Weather"
-        tableView.tableFooterView = UIView()
+        navigationItem.rightBarButtonItem = self.editButtonItem()
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             
@@ -45,11 +54,13 @@ class WFCityWeatherListVC: UIViewController {
                     }
                 }
             }
-            
-            //            dispatch_async(dispatch_get_main_queue(), {
-            //                self.tableView.reloadData()
-            //            })
         }
+    }
+    
+    func tableViewInitialSetup() {
+        tableView.tableFooterView = UIView()
+        tableView.estimatedRowHeight = 60.0
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -80,7 +91,7 @@ class WFCityWeatherListVC: UIViewController {
         var mutableButtonTitle = NSMutableAttributedString()
         
         mutableButtonTitle = NSMutableAttributedString(string: buttonTitle as String)
-        mutableButtonTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: tempUnit == .celsius ? NSRange(location:0,length:4) : NSRange(location:3,length:4)) //set attribute
+        mutableButtonTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: tempUnit == .celsius ? NSRange(location:0,length:4) : NSRange(location:3,length:4))
         tempUnitButtonOutlet.setAttributedTitle(mutableButtonTitle, forState: .Normal)
     }
 }
@@ -104,11 +115,14 @@ extension WFCityWeatherListVC: UITableViewDataSource, UITableViewDelegate {
         return UITableViewCell()
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             cities.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Middle)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
 }
