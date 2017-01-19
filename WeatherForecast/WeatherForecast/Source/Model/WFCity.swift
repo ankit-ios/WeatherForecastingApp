@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 struct WFCity: Equatable {
     
@@ -15,17 +16,16 @@ struct WFCity: Equatable {
     var forecastWeather: [WFWeather]
     
     init(object: AnyObject) {
-        
-            self.cityName = object["request"]!![0]["query"] as? String ?? ""
-            self.currentWeather = WFCurrentWeather.constructModel(object as! [String : AnyObject])
-            self.forecastWeather = WFWeather.constructModel(object as! [String : AnyObject])
+        let jsonObject = JSON(object)
+        self.cityName = jsonObject["request",0,"query"].stringValue
+        self.currentWeather = WFCurrentWeather.constructModel(jsonObject.dictionaryObject ?? Dictionary())
+        self.forecastWeather = WFWeather.constructModel(jsonObject.dictionaryObject ?? Dictionary())
     }
     
     static func constructModel(data: [String: AnyObject]) -> WFCity {
-        
-        let cityData = data["data"]
-        print(cityData!)
-        return WFCity(object: cityData!)
+        let cityData = JSON(data)["data"].dictionaryObject
+        print(cityData)
+        return WFCity(object: cityData ?? Dictionary())
     }
 }
 

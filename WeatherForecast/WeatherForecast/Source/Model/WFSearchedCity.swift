@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 struct WFSearchedCity {
     
@@ -15,21 +16,18 @@ struct WFSearchedCity {
     var cityRegion: String
     
     init(object : [String: AnyObject]) {
-        self.cityName = object["areaName"]?[0]["value"] as? String ?? ""
-        self.cityRegion  = object["region"]?[0]["value"] as? String ?? ""
-        self.cityCountry = object["country"]?[0]["value"] as? String ?? ""
+        let jsonObject = JSON(object)
+        self.cityName = jsonObject["areaName",0,"value"].stringValue
+        self.cityRegion  = jsonObject["areaName",0,"value"].stringValue
+        self.cityCountry = jsonObject["areaName",0,"value"].stringValue
     }
     
     static func constructModel(data: AnyObject) -> [WFSearchedCity] {
-        if let search = data["search_api"] {
-            if let result = search?["result"] as? NSArray {
-                
-                return result.map { object in
-                    WFSearchedCity(object: object as! [String: AnyObject])
-                }
-            }
-        }
-        return [WFSearchedCity]()
+        
+        let results = JSON(data)["search_api","result"].arrayObject ?? NSArray()
+        return results.map({ result in
+            WFSearchedCity(object: result as? Dictionary ?? Dictionary())
+        })
     }
 }
 

@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 struct WFWebServiceManager {
     
@@ -32,8 +33,9 @@ struct WFWebServiceManager {
     static func makeHTTPGetRequest(path: String, onCompletion: completionHandler) {
         
         Alamofire.request(.GET, path).responseJSON { (request, response, result) in
-            if let response = response where response.statusCode == 200 {
-                onCompletion(response: result.value, error: nil)
+            
+            if let json = result.value where response?.statusCode == 200 {
+                onCompletion(response: json, error: nil)
             } else {
                 onCompletion(response: nil, error: nil)
             }

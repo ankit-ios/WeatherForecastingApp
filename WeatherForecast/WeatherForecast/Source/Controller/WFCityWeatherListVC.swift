@@ -63,6 +63,9 @@ class WFCityWeatherListVC: UIViewController {
                     self?.cities.append(WFCity.constructModel(weather as! [String : AnyObject]))
                     self?.tableView.reloadData()
                 }
+                else {
+                    print(error)
+                }
             }
         }
     }

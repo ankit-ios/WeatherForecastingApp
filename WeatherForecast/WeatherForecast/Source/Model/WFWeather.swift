@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 struct WFWeather {
     
@@ -17,15 +18,16 @@ struct WFWeather {
     var minTempInFehrenheit: String
     
     init(object: AnyObject) {
-        self.date = object["date"] as? String ?? ""
-        self.maxTempInCelsius = object["maxtempC"] as? String ?? ""
-        self.minTempInCelsius = object["mintempC"] as? String ?? ""
-        self.maxTempInFehrenheit = object["maxtempF"] as? String ?? ""
-        self.minTempInFehrenheit = object["mintempF"] as? String ?? ""
+        let jsonObject = JSON(object)
+        self.date = jsonObject["date"].stringValue
+        self.maxTempInCelsius = jsonObject["maxtempC"].stringValue
+        self.minTempInCelsius = jsonObject["mintempC"].stringValue
+        self.maxTempInFehrenheit = jsonObject["maxtempF"].stringValue
+        self.minTempInFehrenheit = jsonObject["mintempF"].stringValue
     }
     
     static func constructModel(data: [String: AnyObject]) -> [WFWeather] {
-        let weatherArray = data["weather"] as? NSArray ?? NSArray()
+        let weatherArray = JSON(data)["weather"].arrayObject ?? NSArray()
         return weatherArray.map({ object in
             WFWeather(object: object)
         })
@@ -39,15 +41,16 @@ struct WFCurrentWeather {
     var currentWeatherDesc: String
     
     init(object: AnyObject) {
-        self.currentTempInCelsius = object["temp_C"] as? String ?? ""
-        self.currentTempInFahrenheit = object["temp_F"] as? String ?? ""
-        self.currentWeatherIconUrl = object["weatherIconUrl"]!![0]["value"] as? String ?? ""
-        self.currentWeatherDesc = object["weatherDesc"]!![0]["value"] as? String ?? ""
+        let jsonObject = JSON(object)
+        self.currentTempInCelsius = jsonObject["temp_C"].stringValue
+        self.currentTempInFahrenheit = jsonObject["temp_F"].stringValue
+        self.currentWeatherIconUrl = jsonObject["weatherIconUrl",0,"value"].stringValue
+        self.currentWeatherDesc = jsonObject["weatherDesc",0,"value"].stringValue
     }
     
     static func constructModel(data: [String: AnyObject]) -> WFCurrentWeather {
-        let currentCondition = data["current_condition"]//![0]
-        return WFCurrentWeather(object: currentCondition![0])
+        let currentCondition = JSON(data)["current_condition",0].dictionaryObject
+        return WFCurrentWeather(object: currentCondition ?? Dictionary())
     }
 }
 
