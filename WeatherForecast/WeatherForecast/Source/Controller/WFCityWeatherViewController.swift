@@ -30,6 +30,9 @@ class WFCityWeatherViewController: UIViewController {
     }
     
     func setupOnLoad() {
+        view.backgroundColor = UIColor(patternImage: UIImage(named: "background") ?? UIImage())
+        tableView.tableFooterView = UIView()
+
         if let city = city {
             title = city.cityName
             let currentWeather = city.currentWeather
@@ -57,7 +60,6 @@ class WFCityWeatherViewController: UIViewController {
                 })
             }
         }
-        tableView.tableFooterView = UIView()
     }
     
     

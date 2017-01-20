@@ -10,13 +10,13 @@ import UIKit
 
 enum WFWeatherAPI {
     
-    case SeachCity(text: String)
+    case SearchCity(searchString: String)
     case CityWeather(cityName: String)
     
     func urlString() -> String {
         switch self {
-        case .SeachCity(let text):
-            return kWeatherBaseURL+kSearchString+kKeyParam+kWeatherAPIKey+kNameParam+text+kFormatParam
+        case .SearchCity(let searchString):
+            return kWeatherBaseURL+kSearchString+kKeyParam+kWeatherAPIKey+kNameParam+searchString+kFormatParam
             
         case .CityWeather(let cityName):
             return kWeatherBaseURL+kWeatherString+kKeyParam+kWeatherAPIKey+kNameParam+cityName+kFormatParam+kDayParam+kDateParam

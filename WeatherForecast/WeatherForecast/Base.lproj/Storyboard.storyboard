@@ -30,7 +30,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QXH-om-5DF" userLabel="Sub View">
+                                                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QXH-om-5DF" userLabel="Sub View">
                                                     <rect key="frame" x="6" y="2" width="588" height="56"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Udupi" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcX-Cs-K1L">
@@ -68,19 +68,11 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="QXH-om-5DF" firstAttribute="top" secondItem="8oz-er-bJO" secondAttribute="top" constant="2" id="5Vg-uM-byL"/>
-                                                <constraint firstItem="QXH-om-5DF" firstAttribute="leading" secondItem="8oz-er-bJO" secondAttribute="leadingMargin" constant="6" id="6WS-gx-63f"/>
                                                 <constraint firstItem="QXH-om-5DF" firstAttribute="centerX" secondItem="8oz-er-bJO" secondAttribute="centerX" id="Hpg-PD-03w"/>
                                                 <constraint firstItem="QXH-om-5DF" firstAttribute="leading" secondItem="8oz-er-bJO" secondAttribute="leading" constant="6" id="WX7-0W-w1z"/>
                                                 <constraint firstAttribute="bottom" secondItem="QXH-om-5DF" secondAttribute="bottom" constant="2" id="fQ9-9g-rfy"/>
                                                 <constraint firstAttribute="trailing" secondItem="QXH-om-5DF" secondAttribute="trailing" constant="6" id="gXw-NT-dqI"/>
-                                                <constraint firstAttribute="bottom" secondItem="QXH-om-5DF" secondAttribute="bottom" constant="2" id="tuI-A5-UAU"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="6WS-gx-63f"/>
-                                                    <exclude reference="tuI-A5-UAU"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>

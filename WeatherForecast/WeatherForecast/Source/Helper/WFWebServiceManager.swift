@@ -16,9 +16,9 @@ struct WFWebServiceManager {
     typealias completionHandlerForData = (response: NSData?, error: NSError?) -> Void
 
     
-    static func getSeachedCities(text: String, onCompletion: completionHandlerForJSON) {
+    static func getSeachedCities(searchString: String, onCompletion: completionHandlerForJSON) {
       
-        let urlString = WFWeatherAPI.urlString(.SeachCity(text: text))
+        let urlString = WFWeatherAPI.urlString(.SearchCity(searchString: searchString))
         makeHTTPGetRequestForJSON(urlString().removeSpace) { response, error in
             onCompletion(response: response, error: error)
         }
@@ -39,9 +39,9 @@ struct WFWebServiceManager {
         }
     }
     
-    static func getImageFromFlickrSearch(text: String, onCompletion: (completionHandlerForData)) {
+    static func getImageFromFlickrSearch(searchString: String, onCompletion: (completionHandlerForData)) {
     
-        let urlString = WFFlickrAPI.URLForSearchString(text)
+        let urlString = WFFlickrAPI.URLForSearchString(searchString)
         makeHTTPGetRequestForJSON(urlString) { (response, error) in
          
             if let response = response {

@@ -27,6 +27,7 @@ class WFAddCityViewController: UIViewController {
     
     func setupOnLoad() {
         title = kAddCityVCTitle
+        view.backgroundColor = UIColor(patternImage: UIImage(named: "background") ?? UIImage())
     }
     
     func tableViewInitialSetup() {
