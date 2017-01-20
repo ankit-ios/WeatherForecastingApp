@@ -18,8 +18,8 @@ struct WFSearchedCity {
     init(object : [String: AnyObject]) {
         let jsonObject = JSON(object)
         self.cityName = jsonObject["areaName",0,"value"].stringValue
-        self.cityRegion  = jsonObject["areaName",0,"value"].stringValue
-        self.cityCountry = jsonObject["areaName",0,"value"].stringValue
+        self.cityRegion  = jsonObject["region",0,"value"].stringValue
+        self.cityCountry = jsonObject["country",0,"value"].stringValue
     }
     
     static func constructModel(data: AnyObject) -> [WFSearchedCity] {

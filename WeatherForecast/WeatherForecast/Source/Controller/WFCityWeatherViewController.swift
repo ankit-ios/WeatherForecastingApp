@@ -15,6 +15,7 @@ class WFCityWeatherViewController: UIViewController {
     @IBOutlet weak var currentWeatherDescLabel: UILabel!
     @IBOutlet weak var currentWeatherIconImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var city: WFCity?
     var tempUnit: TempUnit = .celsius
@@ -24,23 +25,42 @@ class WFCityWeatherViewController: UIViewController {
         setupOnLoad()
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        currentWeatherIconImageView.image = nil
+    }
+    
     func setupOnLoad() {
         if let city = city {
             title = city.cityName
             let currentWeather = city.currentWeather
             currentWeatherTempLabel.text = tempUnit == .celsius ? "\(currentWeather.currentTempInCelsius) ºC" : "\(currentWeather.currentTempInFahrenheit) ºF"
-            currentWeatherDescLabel.text = currentWeather.currentWeatherDesc
-            WFWebServiceManager.getWeatherIcon(currentWeather.currentWeatherIconUrl) { imageData, error in
-                if let imageData = imageData where error == nil {
+            let weatherDesc = currentWeather.currentWeatherDesc
+            currentWeatherDescLabel.text = weatherDesc
+           
+            activityIndicator.startAnimating()
+            
+            if let backgroundImage = NSCache.sharedInstance.objectForKey(weatherDesc) as? UIImage {
+                self.currentWeatherIconImageView.image = backgroundImage
+                self.activityIndicator.stopAnimating()
+            } else {
+                WFWebServiceManager.getImageFromFlickrSearch(weatherDesc.removeSpace, onCompletion: { (response, error) in
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.currentWeatherIconImageView.image = UIImage(data: imageData)
-                        self.tableView.reloadData()
+                        self.activityIndicator.stopAnimating()
+                        if let imageData = response where error == nil {
+                            let image = UIImage(data: imageData)
+                            self.currentWeatherIconImageView.image = image
+                            NSCache.sharedInstance.setObject(image ?? UIImage(), forKey: weatherDesc)
+                        } else {
+                            self.currentWeatherIconImageView.image = UIImage(named: "placeHolder")
+                        }
                     })
-                }
+                })
             }
         }
         tableView.tableFooterView = UIView()
     }
+    
+    
     
     func convertDateFormate(date: String) -> String {
         let dateformatter = NSDateFormatter()
@@ -49,7 +69,7 @@ class WFCityWeatherViewController: UIViewController {
         let date = dateformatter.dateFromString(date)
         
         dateformatter.dateFormat = kD_M_Y
-        return dateformatter.stringFromDate(date!)
+        return dateformatter.stringFromDate(date ?? NSDate())
     }
 }
 

@@ -47,6 +47,7 @@ class WFCityWeatherListVC: UIViewController {
     
     func setupOnLoad() {
         title = kCityWeatherListVCTitle
+        view.backgroundColor = UIColor(patternImage: UIImage(named: "background") ?? UIImage())
         navigationItem.rightBarButtonItem = self.editButtonItem()
         
         if let citiesName = getCityName() as? [String] {
@@ -60,7 +61,7 @@ class WFCityWeatherListVC: UIViewController {
         for cityName in self.citiesName {
             WFWebServiceManager.getCityWeather(cityName) { [weak self] weather, error in
                 if let weather = weather where error == nil {
-                    self?.cities.append(WFCity.constructModel(weather as! [String : AnyObject]))
+                    self?.cities.append(WFCity.constructModel(JSON(weather).dictionaryObject ?? Dictionary()))
                     self?.tableView.reloadData()
                 }
                 else {

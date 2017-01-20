@@ -9,8 +9,10 @@
 import Foundation
 
 //API Constants
-let kBaseURL = "https://api.worldweatheronline.com/premium/v1"
-let kAPIKey = "0cbbbbf2ee2344ef90a64938171101"
+
+//Weather (World Weather Online) API
+let kWeatherBaseURL = "https://api.worldweatheronline.com/premium/v1"
+let kWeatherAPIKey = "0cbbbbf2ee2344ef90a64938171101"
 let kSearchString = "/search.ashx"
 let kWeatherString = "/weather.ashx"
 let kKeyParam = "?key="
@@ -18,6 +20,15 @@ let kNameParam = "&q="
 let kFormatParam = "&format=json"
 let kDayParam = "&num_of_days=5"
 let kDateParam = "&date=today"
+
+//Flickr API
+let kFlickrBaseURL = "https://api.flickr.com/services/rest/?"
+let kFlickrAPIKey = "507fee28d0e6c2b1575e7343bdf11bd1"
+let kFlickrSearchMethod = "method=flickr.photos.search"
+let kFlickrGroupID = "&group_id=1463451%40N25"
+let kFlickrPage = "&per_page=1"
+let kFlickrJSONCallBack = "&nojsoncallback=1"
+
 
 //Segue Constants
 let kAddCitySegue = "AddCitySegue"
