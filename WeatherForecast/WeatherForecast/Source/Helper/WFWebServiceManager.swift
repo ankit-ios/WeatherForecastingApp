@@ -12,25 +12,50 @@ import SwiftyJSON
 
 struct WFWebServiceManager {
     
-    typealias completionHandler = (response: AnyObject?, error: NSError?) -> Void
+    typealias completionHandlerForJSON = (response: AnyObject?, error: NSError?) -> Void
+    typealias completionHandlerForData = (response: NSData?, error: NSError?) -> Void
+
     
-    static func getSeachedCities(text: String, onCompletion: completionHandler) {
+    static func getSeachedCities(text: String, onCompletion: completionHandlerForJSON) {
       
         let urlString = WFWeatherAPI.urlString(.SeachCity(text: text))
-        makeHTTPGetRequest(urlString().removeSpace) { response, error in
+        makeHTTPGetRequestForJSON(urlString().removeSpace) { response, error in
             onCompletion(response: response, error: error)
         }
     }
     
-    static func getCityWeather(cityName: String, onCompletion: completionHandler) {
+    static func getCityWeather(cityName: String, onCompletion: completionHandlerForJSON) {
         
         let urlString = WFWeatherAPI.urlString(.CityWeather(cityName: cityName))
-        makeHTTPGetRequest(urlString().removeSpace) { response, error in
+        makeHTTPGetRequestForJSON(urlString().removeSpace) { response, error in
             onCompletion(response: response, error: error)
         }
     }
     
-    static func makeHTTPGetRequest(path: String, onCompletion: completionHandler) {
+    static func getWeatherIcon(urlString: String, onCompletion: completionHandlerForData) {
+        
+        makeHTTPGetRequestForData(urlString) { (response, error) in
+            onCompletion(response: response,error: error)
+        }
+    }
+    
+    static func getImageFromFlickrSearch(text: String, onCompletion: (completionHandlerForData)) {
+    
+        let urlString = WFFlickrAPI.URLForSearchString(text)
+        makeHTTPGetRequestForJSON(urlString) { (response, error) in
+         
+            if let response = response {
+                let flickerPhoto = WFFlickrPhoto.constructModel(JSON(response)["photos","photo",0].dictionaryObject ?? Dictionary())
+                let urlString = WFFlickrAPI.URLForFlickrPhoto(flickerPhoto, size: "b")
+                
+                makeHTTPGetRequestForData(urlString, onCompletion: { (response, error) in
+                    onCompletion(response: response, error: error)
+                })
+            }
+        }
+    }
+    
+    static func makeHTTPGetRequestForJSON(path: String, onCompletion: completionHandlerForJSON) {
         
         Alamofire.request(.GET, path).responseJSON { (request, response, result) in
             
@@ -42,13 +67,16 @@ struct WFWebServiceManager {
         }
     }
     
-    static func getWeatherIcon(urlString: String, onCompletion: (imageData: NSData?, error: NSError?) -> Void) {
+
+    static func makeHTTPGetRequestForData(urlString: String, onCompletion: (completionHandlerForData)) {
+    
         Alamofire.request(.GET, urlString).responseData { (request, respose, result) in
             if let respose = respose where respose.statusCode == 200 {
-                onCompletion(imageData: result.value, error: nil)
+                onCompletion(response: result.value, error: nil)
             } else {
-                onCompletion(imageData: nil, error: nil)
+                onCompletion(response: nil, error: nil)
             }
         }
+
     }
 }

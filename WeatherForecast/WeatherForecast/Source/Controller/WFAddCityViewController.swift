@@ -62,7 +62,7 @@ extension WFAddCityViewController: UITableViewDataSource,UITableViewDelegate {
             
             if let cityWeather = cityWeather {
                 self?.navigationController?.popViewControllerAnimated(true)
-                self?.delegate?.cityAdded(WFCity.constructModel(cityWeather as! [String : AnyObject]))
+                self?.delegate?.cityAdded(WFCity.constructModel(JSON(cityWeather).dictionaryObject ?? Dictionary()))
             }
         }
     }
@@ -81,7 +81,6 @@ extension WFAddCityViewController: UISearchBarDelegate {
     }
     
     func doDelayedSearch(timer: NSTimer) {
-        print(timer.userInfo!)
         searchCity(timer.userInfo as? String ?? "")
     }
     

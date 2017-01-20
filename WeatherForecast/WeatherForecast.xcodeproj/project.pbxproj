@@ -21,9 +21,11 @@
 		C97D955B1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D955A1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift */; };
 		C97D955D1E2CEF920087516D /* WFCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D955C1E2CEF920087516D /* WFCity.swift */; };
 		C97D955F1E2CF03D0087516D /* WFWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D955E1E2CF03D0087516D /* WFWeather.swift */; };
+		C98F7EB81E31D19A0074EE8E /* WFWeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F7EB71E31D19A0074EE8E /* WFWeatherAPI.swift */; };
+		C98F7EBA1E31D1C60074EE8E /* WFFlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F7EB91E31D1C60074EE8E /* WFFlickrAPI.swift */; };
+		C98F7EBC1E31D34C0074EE8E /* WFFlickrPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F7EBB1E31D34C0074EE8E /* WFFlickrPhoto.swift */; };
 		C9CC037D1E2DDF830027A732 /* WFCityWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC037C1E2DDF830027A732 /* WFCityWeatherViewController.swift */; };
 		C9CC037F1E2DDFF40027A732 /* WFCityWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC037E1E2DDFF40027A732 /* WFCityWeatherTableViewCell.swift */; };
-		C9D860541E2F35730091881D /* WFWeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D860531E2F35730091881D /* WFWeatherAPI.swift */; };
 		C9E8A8441E2E4C4E00DA9AB6 /* Extensions+WFUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E8A8431E2E4C4E00DA9AB6 /* Extensions+WFUtility.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,9 +60,11 @@
 		C97D955A1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFCityWeatherListTableViewCell.swift; path = Source/View/WFCityWeatherListTableViewCell.swift; sourceTree = "<group>"; };
 		C97D955C1E2CEF920087516D /* WFCity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFCity.swift; path = Source/Model/WFCity.swift; sourceTree = "<group>"; };
 		C97D955E1E2CF03D0087516D /* WFWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFWeather.swift; path = Source/Model/WFWeather.swift; sourceTree = "<group>"; };
+		C98F7EB71E31D19A0074EE8E /* WFWeatherAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFWeatherAPI.swift; path = Source/API/WFWeatherAPI.swift; sourceTree = "<group>"; };
+		C98F7EB91E31D1C60074EE8E /* WFFlickrAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFFlickrAPI.swift; path = Source/API/WFFlickrAPI.swift; sourceTree = "<group>"; };
+		C98F7EBB1E31D34C0074EE8E /* WFFlickrPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFFlickrPhoto.swift; path = Source/Model/WFFlickrPhoto.swift; sourceTree = "<group>"; };
 		C9CC037C1E2DDF830027A732 /* WFCityWeatherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFCityWeatherViewController.swift; path = Source/Controller/WFCityWeatherViewController.swift; sourceTree = "<group>"; };
 		C9CC037E1E2DDFF40027A732 /* WFCityWeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFCityWeatherTableViewCell.swift; path = Source/View/WFCityWeatherTableViewCell.swift; sourceTree = "<group>"; };
-		C9D860531E2F35730091881D /* WFWeatherAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFWeatherAPI.swift; path = Source/Helper/WFWeatherAPI.swift; sourceTree = "<group>"; };
 		C9E8A8431E2E4C4E00DA9AB6 /* Extensions+WFUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Extensions+WFUtility.swift"; path = "Source/Extension/Extensions+WFUtility.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,6 +173,7 @@
 		C92C05DA1E28921B003F060D /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C98F7EB61E31D16E0074EE8E /* API */,
 				C9E8A8421E2E4C1600DA9AB6 /* Extension */,
 				C92C05DB1E289224003F060D /* Model */,
 				C92C05DD1E289242003F060D /* View */,
@@ -184,6 +189,7 @@
 				C97D955C1E2CEF920087516D /* WFCity.swift */,
 				C97D955E1E2CF03D0087516D /* WFWeather.swift */,
 				C92C05E51E2893FB003F060D /* WFSearchedCity.swift */,
+				C98F7EBB1E31D34C0074EE8E /* WFFlickrPhoto.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -192,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				C92C05E11E2893C7003F060D /* WFWebServiceManager.swift */,
-				C9D860531E2F35730091881D /* WFWeatherAPI.swift */,
 				C963196D1E2FA8AD003A0CCD /* WFConstants.swift */,
 			);
 			name = Helper;
@@ -215,6 +220,15 @@
 				C92C05E91E289410003F060D /* WFAddCityViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		C98F7EB61E31D16E0074EE8E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				C98F7EB71E31D19A0074EE8E /* WFWeatherAPI.swift */,
+				C98F7EB91E31D1C60074EE8E /* WFFlickrAPI.swift */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 		C9E8A8421E2E4C1600DA9AB6 /* Extension */ = {
@@ -377,14 +391,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9D860541E2F35730091881D /* WFWeatherAPI.swift in Sources */,
 				C9E8A8441E2E4C4E00DA9AB6 /* Extensions+WFUtility.swift in Sources */,
 				C9CC037D1E2DDF830027A732 /* WFCityWeatherViewController.swift in Sources */,
 				C97D955B1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift in Sources */,
 				C9CC037F1E2DDFF40027A732 /* WFCityWeatherTableViewCell.swift in Sources */,
+				C98F7EBC1E31D34C0074EE8E /* WFFlickrPhoto.swift in Sources */,
 				C92C05B81E28917B003F060D /* AppDelegate.swift in Sources */,
+				C98F7EB81E31D19A0074EE8E /* WFWeatherAPI.swift in Sources */,
 				C92C05E21E2893C7003F060D /* WFWebServiceManager.swift in Sources */,
 				C92C05EA1E289410003F060D /* WFAddCityViewController.swift in Sources */,
+				C98F7EBA1E31D1C60074EE8E /* WFFlickrAPI.swift in Sources */,
 				C97D955D1E2CEF920087516D /* WFCity.swift in Sources */,
 				C97D95591E2CC2D00087516D /* WFCityWeatherListVC.swift in Sources */,
 				C963196E1E2FA8AD003A0CCD /* WFConstants.swift in Sources */,

@@ -9,16 +9,17 @@
 import UIKit
 
 enum WFWeatherAPI {
+    
     case SeachCity(text: String)
     case CityWeather(cityName: String)
     
     func urlString() -> String {
         switch self {
         case .SeachCity(let text):
-            return kBaseURL+kSearchString+kKeyParam+kAPIKey+kNameParam+text+kFormatParam
+            return kWeatherBaseURL+kSearchString+kKeyParam+kWeatherAPIKey+kNameParam+text+kFormatParam
             
         case .CityWeather(let cityName):
-            return kBaseURL+kWeatherString+kKeyParam+kAPIKey+kNameParam+cityName+kFormatParam+kDayParam+kDateParam
+            return kWeatherBaseURL+kWeatherString+kKeyParam+kWeatherAPIKey+kNameParam+cityName+kFormatParam+kDayParam+kDateParam
         }
     }
 }

@@ -21,3 +21,15 @@ extension String {
         return self.stringByReplacingOccurrencesOfString(" ", withString: "+") ?? self
     }
 }
+
+//NSCache Extension
+extension NSCache {
+   class var sharedInstance: NSCache {
+        struct Static {
+            static let instance = NSCache()
+        }
+        return Static.instance
+    }
+}
+
+
