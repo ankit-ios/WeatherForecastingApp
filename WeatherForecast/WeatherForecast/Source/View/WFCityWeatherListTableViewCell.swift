@@ -8,9 +8,17 @@
 
 import UIKit
 
+/// WFCityWeatherListTableViewCell table view cell
 class WFCityWeatherListTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var cityNameLabel: UILabel!
-    @IBOutlet weak var cityWeatherLabel: UILabel!
-
+    @IBOutlet private weak var cityNameLabel: UILabel!
+    @IBOutlet private weak var cityWeatherLabel: UILabel!
+    
+    func configureCell(with city: WFCity, tempUnit: TempUnit) {
+        cityNameLabel.text = city.cityName ?? ""
+        
+        let temp = city.currentWeather
+        let weather = tempUnit == .celsius ? "\(temp?.currentTempInCelsius ?? "") ºC" : "\(temp?.currentTempInFahrenheit ?? "") ºF"
+        cityWeatherLabel.text = "\(weather)"
+    }
 }

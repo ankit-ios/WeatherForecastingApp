@@ -6,51 +6,60 @@
 //  Copyright © 2017 Robosoft Technology. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import SwiftyJSON
 
-struct WFWeather {
+/// This model class is used for creating object with weather forecast information
+class WFWeather {
     
-    var date: String
-    var maxTempInCelsius: String
-    var minTempInCelsius: String
-    var maxTempInFehrenheit: String
-    var minTempInFehrenheit: String
+    let date: String?
+    let maxTempInCelsius: String?
+    let minTempInCelsius: String?
+    let maxTempInFehrenheit: String?
+    let minTempInFehrenheit: String?
     
+    //This initializer is used for parsing the API response
     init(object: AnyObject) {
         let jsonObject = JSON(object)
-        self.date = jsonObject["date"].stringValue
-        self.maxTempInCelsius = jsonObject["maxtempC"].stringValue
-        self.minTempInCelsius = jsonObject["mintempC"].stringValue
-        self.maxTempInFehrenheit = jsonObject["maxtempF"].stringValue
-        self.minTempInFehrenheit = jsonObject["mintempF"].stringValue
+        self.date = jsonObject["date"].string
+        self.maxTempInCelsius = jsonObject["maxtempC"].string
+        self.minTempInCelsius = jsonObject["mintempC"].string
+        self.maxTempInFehrenheit = jsonObject["maxtempF"].string
+        self.minTempInFehrenheit = jsonObject["mintempF"].string
     }
     
-    static func constructModel(data: [String: AnyObject]) -> [WFWeather] {
-        let weatherArray = JSON(data)["weather"].arrayObject ?? NSArray()
-        return weatherArray.map({ object in
-            WFWeather(object: object)
-        })
+    static func constructModel(data: [String: AnyObject]?) -> [WFWeather]? {
+        guard let data = data else {return nil}
+        
+        if let weatherArray = JSON(data)["weather"].arrayObject {
+            return weatherArray.map({ object in
+                WFWeather(object: object)
+            })
+        }
+        return nil
     }
 }
 
-struct WFCurrentWeather {
-    var currentTempInCelsius: String
-    var currentTempInFahrenheit: String
-    var currentWeatherIconUrl: String
-    var currentWeatherDesc: String
+/// This model class is used for creating object with weather current information
+class WFCurrentWeather {
+    let currentTempInCelsius: String?
+    let currentTempInFahrenheit: String?
+    let currentWeatherDesc: String?
     
+    //This initializer is used for parsing the API response
     init(object: AnyObject) {
         let jsonObject = JSON(object)
-        self.currentTempInCelsius = jsonObject["temp_C"].stringValue
-        self.currentTempInFahrenheit = jsonObject["temp_F"].stringValue
-        self.currentWeatherIconUrl = jsonObject["weatherIconUrl",0,"value"].stringValue
-        self.currentWeatherDesc = jsonObject["weatherDesc",0,"value"].stringValue
+        self.currentTempInCelsius = jsonObject["temp_C"].string
+        self.currentTempInFahrenheit = jsonObject["temp_F"].string
+        self.currentWeatherDesc = jsonObject["weatherDesc",0,"value"].string
     }
     
-    static func constructModel(data: [String: AnyObject]) -> WFCurrentWeather {
-        let currentCondition = JSON(data)["current_condition",0].dictionaryObject
-        return WFCurrentWeather(object: currentCondition ?? Dictionary())
+    static func constructModel(data: [String: AnyObject]?) -> WFCurrentWeather? {
+        guard let data = data else {return nil}
+        if let currentCondition = JSON(data)["current_condition",0].dictionaryObject {
+            return WFCurrentWeather(object: currentCondition)
+        }
+        return nil
     }
 }
 

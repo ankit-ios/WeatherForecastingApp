@@ -8,7 +8,7 @@
 
 import Foundation
 
-//API Constants
+//All Constants
 
 //Weather (World Weather Online) API
 let kWeatherBaseURL = "https://api.worldweatheronline.com/premium/v1"
@@ -23,12 +23,11 @@ let kDateParam = "&date=today"
 
 //Flickr API
 let kFlickrBaseURL = "https://api.flickr.com/services/rest/?"
-let kFlickrAPIKey = "507fee28d0e6c2b1575e7343bdf11bd1"
+let kFlickrAPIKey = "3473b56ab7072edfde6d209f43336f12"
 let kFlickrSearchMethod = "method=flickr.photos.search"
 let kFlickrGroupID = "&group_id=1463451%40N25"
 let kFlickrPage = "&per_page=1"
 let kFlickrJSONCallBack = "&nojsoncallback=1"
-
 
 //Segue Constants
 let kAddCitySegue = "AddCitySegue"

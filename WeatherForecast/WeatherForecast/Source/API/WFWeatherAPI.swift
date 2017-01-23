@@ -6,8 +6,13 @@
 //  Copyright © 2017 Robosoft Technology. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
+/**
+Getting URL from API
+ - SearchCity:  url for all searched city
+ - CityWeather: url for weather of given city
+ */
 enum WFWeatherAPI {
     
     case SearchCity(searchString: String)

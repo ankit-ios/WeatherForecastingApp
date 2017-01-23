@@ -9,22 +9,28 @@
 import Foundation
 import SwiftyJSON
 
+/// This WFFlickrPhoto strct is used for getting image infromation from flickr api.
 struct WFFlickrPhoto {
-
-    var photoID: String
-    var farm: Int
-    var server: String
-    var secret: String
     
+    let photoID: String?
+    let farm: Int?
+    let server: String?
+    let secret: String?
+
+    //This initializer is used for parsing the API response
     init(object: [String: AnyObject]) {
         let jsonObject = JSON(object)
-        self.photoID = jsonObject["id"].stringValue
-        self.farm = jsonObject["farm"].intValue
-        self.server = jsonObject["server"].stringValue
-        self.secret = jsonObject["secret"].stringValue
+        self.photoID = jsonObject["id"].string
+        self.farm = jsonObject["farm"].int
+        self.server = jsonObject["server"].string
+        self.secret = jsonObject["secret"].string
     }
     
-    static func constructModel(data: AnyObject) -> WFFlickrPhoto {
-        return WFFlickrPhoto(object: JSON(data).dictionaryObject ?? Dictionary())
+    static func constructModel(data: AnyObject?) -> WFFlickrPhoto? {
+        guard let data = data else {return nil}
+        if let object = JSON(data)["photos","photo",0].dictionaryObject {
+            return WFFlickrPhoto(object: object)
+        }
+        return nil
     }
 }
