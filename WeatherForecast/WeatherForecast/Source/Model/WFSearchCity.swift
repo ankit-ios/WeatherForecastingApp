@@ -12,14 +12,14 @@ import SwiftyJSON
 /// This WFSearchCity is used for getting information about searched city.
 class WFSearchCity {
     
-    let cityName: String?
+    let cityName: String
     let cityCountry: String?
     let cityRegion: String?
     
     //This initializer is used for parsing the API response
     init(object : [String: AnyObject]) {
         let jsonObject = JSON(object)
-        self.cityName = jsonObject["areaName",0,"value"].string
+        self.cityName = jsonObject["areaName",0,"value"].stringValue
         self.cityRegion  = jsonObject["region",0,"value"].string
         self.cityCountry = jsonObject["country",0,"value"].string
     }

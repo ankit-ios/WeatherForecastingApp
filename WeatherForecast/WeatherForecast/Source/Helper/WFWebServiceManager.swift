@@ -19,16 +19,26 @@ struct WFWebServiceManager {
     typealias completionHandlerForData = (response: NSData?, error: NSError?) -> Void
     
     /**
-    Getting json response about searched cities
+     Getting json response about searched cities
      
      - parameter searchString: city name
      - parameter onCompletion: return seached city
      */
-    static func getSeachedCities(searchString: String, onCompletion: completionHandlerForJSON) {
+    static func getSeachedCities(searchString: String, onCompletion: (response: [WFSearchCity]?, error: NSError?) -> Void) {
         
-        let urlString = WFWeatherAPI.urlString(.SearchCity(searchString: searchString))
+        let urlString = WFCityWeatherAPI.urlString(.SearchCity(searchString: searchString))
         makeHTTPGetRequestForJSON(urlString().removeSpace) { response, error in
-            onCompletion(response: response, error: error)
+            
+            if let response = response where error == nil {
+                if let searchedCities = WFSearchCity.constructModel(response) {
+                    onCompletion(response: searchedCities, error: nil)
+                }
+                else {
+                    onCompletion(response: nil, error: WFError.getWrongDataError())
+                }
+            } else {
+                onCompletion(response: nil, error: error)
+            }
         }
     }
     
@@ -38,11 +48,20 @@ struct WFWebServiceManager {
      - parameter cityName:     city name
      - parameter onCompletion: return city weather
      */
-    static func getCityWeather(cityName: String, onCompletion: completionHandlerForJSON) {
+    static func getCityWeather(cityName: String, onCompletion: (response: WFCity?, error: NSError?) -> Void) {
         
-        let urlString = WFWeatherAPI.urlString(.CityWeather(cityName: cityName))
+        let urlString = WFCityWeatherAPI.urlString(.CityWeather(cityName: cityName))
         makeHTTPGetRequestForJSON(urlString().removeSpace) { response, error in
-            onCompletion(response: response, error: error)
+            
+            if let response = response where error == nil {
+                if let newCityWeather = WFCity.constructModel(response as? [String: AnyObject]) {
+                    onCompletion(response: newCityWeather, error: nil)
+                } else {
+                    onCompletion(response: nil, error: WFError.getWrongDataError())
+                }
+            } else {
+                onCompletion(response: nil, error: error)
+            }
         }
     }
     
@@ -65,7 +84,7 @@ struct WFWebServiceManager {
                         onCompletion(response: response, error: error)
                     })
                 } else {
-                    onCompletion(response: nil, error: error)
+                    onCompletion(response: nil, error: WFError.getWrongDataError())
                 }
             } else {
                 onCompletion(response: nil, error: error)
@@ -87,7 +106,7 @@ struct WFWebServiceManager {
             case .Success(let value):
                 onCompletion(response: value, error: nil)
             case .Failure(_, let error):
-                onCompletion(response: nil, error: error as? NSError)
+                onCompletion(response: nil, error: error as? NSError ?? WFError.getServerError())
             }
         }
     }
@@ -106,7 +125,7 @@ struct WFWebServiceManager {
             case .Success(let value):
                 onCompletion(response: value, error: nil)
             case .Failure(_, let error):
-                onCompletion(response: nil, error: error as? NSError)
+                onCompletion(response: nil, error: error as? NSError ?? WFError.getServerError())
             }
         }
     }

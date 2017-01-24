@@ -1,5 +1,5 @@
 //
-//  WFWeather.swift
+//  WFCityWeather.swift
 //  WeatherForecast
 //
 //  Created by Ankit Sharma on 16/01/17.
@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 
 /// This model class is used for creating object with weather forecast information
-class WFWeather {
+class WFCityWeather {
     
     let date: String?
     let maxTempInCelsius: String?
@@ -28,12 +28,12 @@ class WFWeather {
         self.minTempInFehrenheit = jsonObject["mintempF"].string
     }
     
-    static func constructModel(data: [String: AnyObject]?) -> [WFWeather]? {
+    static func constructModel(data: [String: AnyObject]?) -> [WFCityWeather]? {
         guard let data = data else {return nil}
         
         if let weatherArray = JSON(data)["weather"].arrayObject {
             return weatherArray.map({ object in
-                WFWeather(object: object)
+                WFCityWeather(object: object)
             })
         }
         return nil
@@ -41,7 +41,7 @@ class WFWeather {
 }
 
 /// This model class is used for creating object with weather current information
-class WFCurrentWeather {
+class WFCurrentCityWeather {
     let currentTempInCelsius: String?
     let currentTempInFahrenheit: String?
     let currentWeatherDesc: String?
@@ -54,10 +54,10 @@ class WFCurrentWeather {
         self.currentWeatherDesc = jsonObject["weatherDesc",0,"value"].string
     }
     
-    static func constructModel(data: [String: AnyObject]?) -> WFCurrentWeather? {
+    static func constructModel(data: [String: AnyObject]?) -> WFCurrentCityWeather? {
         guard let data = data else {return nil}
         if let currentCondition = JSON(data)["current_condition",0].dictionaryObject {
-            return WFCurrentWeather(object: currentCondition)
+            return WFCurrentCityWeather(object: currentCondition)
         }
         return nil
     }

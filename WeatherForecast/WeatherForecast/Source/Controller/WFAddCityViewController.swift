@@ -9,18 +9,20 @@
 import Foundation
 import UIKit
 
+/// This protocol is act for adding new searched city.
 protocol WFAddCityViewControllerProtocol: class {
     func didAddNewCityName(cityName: String)
 }
 
+/// This WFAddCityViewController is used for search cities.
 class WFAddCityViewController: UIViewController {
     
     //Outlets
     @IBOutlet private weak var tableView: UITableView!
-
+    
     //Private properties
     private var searchDelayed: NSTimer?
-    private var searchedCity: [WFSearchCity]?
+    private var searchCity: [WFSearchCity]?
     weak var delegate: WFAddCityViewControllerProtocol?
     
     
@@ -38,7 +40,7 @@ private extension WFAddCityViewController {
         title = kAddCityVCTitle
         view.backgroundColor = UIColor.defaultBackgroundColor
         tableView.initialSetup()
-        searchedCity = [WFSearchCity]()
+        searchCity = [WFSearchCity]()
     }
     
     //selector method for delaying in search
@@ -52,14 +54,14 @@ private extension WFAddCityViewController {
         WFWebServiceManager.getSeachedCities(text) {[weak self] (response, error) in
             
             if let response = response where error == nil {
-                if let searchedCities = WFSearchCity.constructModel(response) {
-                    self?.searchedCity = searchedCities
-                }
+                self?.searchCity = response
                 dispatch_async(dispatch_get_main_queue(), {
                     self?.tableView.reloadData()
                 })
             } else {
-                self?.showAlertWithMessage(title: "Error", message: error?.localizedDescription, viewController: self)
+                self?.searchCity = nil
+                self?.tableView.reloadData()
+                self?.showAlertWithMessage(title: kError, message: error?.localizedDescription, viewController: self)
             }
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
@@ -68,7 +70,7 @@ private extension WFAddCityViewController {
     //show alert controller
     func showAlert(title title: String?, message: String?) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: { alertVC in
+        alertController.addAction(UIAlertAction(title: kOK, style: .Default, handler: { alertVC in
             alertController.dismissViewControllerAnimated(true, completion: nil)
             
             //dismiss WFAddCityViewController
@@ -76,34 +78,37 @@ private extension WFAddCityViewController {
         }))
         return alertController
     }
+    
+    func createCell(with indexPath: NSIndexPath) -> WFAddCityTableViewCell? {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(kSearchCityCell) as? WFAddCityTableViewCell {
+            if let searchCity = searchCity?[indexPath.row] {
+                cell.configureCell(with: searchCity)
+                return cell
+            }
+        }
+        return nil
+    }
 }
 
 // MARK: - UITableView DataSource and UITableView Delegate methods
 extension WFAddCityViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchedCity?.count ?? 0
+        return searchCity?.count ?? 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        if let cell = tableView.dequeueReusableCellWithIdentifier(kSearchCityCell) as? WFAddCityTableViewCell {
-            if let searchCity = searchedCity?[indexPath.row] {
-                cell.configureCell(with: searchCity)
-                return cell
-            }
-        }
-        return UITableViewCell()
+        return createCell(with: indexPath) ?? UITableViewCell()
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         view.endEditing(true)
-        if let searchedCity = searchedCity?[indexPath.row] {
-            let urlString = "\(searchedCity.cityName ?? ""), \(searchedCity.cityCountry ?? "")"
+        if let searchCity = searchCity?[indexPath.row] {
+            let urlString = "\(searchCity.cityName ?? ""), \(searchCity.cityCountry ?? "")"
             delegate?.didAddNewCityName(urlString)
             
             //show alert controller
-            let alertVC = self.showAlert(title: "Alert", message: "\(urlString) City Added.")
+            let alertVC = self.showAlert(title: kAlert, message: "\(urlString) City Added.")
             self.presentViewController(alertVC, animated: true, completion: nil)
         }
     }
@@ -117,8 +122,16 @@ extension WFAddCityViewController: UISearchBarDelegate {
         view.endEditing(true)
     }
     
-    //delaying in serach 
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
+    
+    //delaying in serach
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.characters.count < 1 {
+            searchBar.resignFirstResponder()
+        }
         searchDelayed?.invalidate()
         searchDelayed = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(WFAddCityViewController.doDelayedSearch(_:)), userInfo: searchText, repeats: false)
     }

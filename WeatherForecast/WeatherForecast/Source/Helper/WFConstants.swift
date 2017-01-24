@@ -23,7 +23,7 @@ let kDateParam = "&date=today"
 
 //Flickr API
 let kFlickrBaseURL = "https://api.flickr.com/services/rest/?"
-let kFlickrAPIKey = "3473b56ab7072edfde6d209f43336f12"
+let kFlickrAPIKey = "5f33b2ecea05f95495fe5d584a621496"
 let kFlickrSearchMethod = "method=flickr.photos.search"
 let kFlickrGroupID = "&group_id=1463451%40N25"
 let kFlickrPage = "&per_page=1"
@@ -51,3 +51,9 @@ let kD_M_Y = "dd-mm-yyyy"
 //Navigation Title
 let kAddCityVCTitle = "Search City"
 let kCityWeatherListVCTitle = "Weather"
+
+//Alert message
+let kAlert = "Alert"
+let kError = "Error"
+let kOK = "OK"
+let kRefresh = "Pull to Refresh"

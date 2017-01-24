@@ -21,7 +21,7 @@ class WFCityWeatherViewController: UIViewController {
     
     //Properties
     var city: WFCity?
-    var tempUnit: TempUnit = .celsius
+    var tempUnit: TempUnit?
     
     
     //View Controller life cycles
@@ -78,11 +78,21 @@ private extension WFCityWeatherViewController {
                             NSCache.sharedInstance.setObject(image, forKey: weatherDescription)
                         }
                     } else {
-                        self?.showAlertWithMessage(title: "Error", message: error?.localizedDescription, viewController: self)
+                        self?.showAlertWithMessage(title: kError, message: error?.localizedDescription, viewController: self)
                     }
                 })
-            })
+                })
         }
+    }
+    
+    func createCell(with indexPath: NSIndexPath) -> WFCityWeatherTableViewCell? {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(kCityWeatherCell) as? WFCityWeatherTableViewCell {
+            if let weather = city?.forecastWeathers?[indexPath.row] {
+                cell.configureCell(with: weather, tempUnit: tempUnit ?? .celsius)
+            }
+            return cell
+        }
+        return nil
     }
 }
 
@@ -90,18 +100,11 @@ private extension WFCityWeatherViewController {
 extension WFCityWeatherViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return city?.forecastWeather?.count ?? 0
+        return city?.forecastWeathers?.count ?? 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier(kCityWeatherCell) as? WFCityWeatherTableViewCell {
-            if let weather = city?.forecastWeather?[indexPath.row] {
-                
-                cell.configureCell(with: weather, tempUnit: tempUnit)
-            }
-            return cell
-        }
-        return UITableViewCell()
+        return createCell(with: indexPath) ?? UITableViewCell()
     }
 }
 

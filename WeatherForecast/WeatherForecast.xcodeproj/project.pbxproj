@@ -17,11 +17,12 @@
 		C92C05E61E2893FB003F060D /* WFSearchCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92C05E51E2893FB003F060D /* WFSearchCity.swift */; };
 		C92C05EA1E289410003F060D /* WFAddCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92C05E91E289410003F060D /* WFAddCityViewController.swift */; };
 		C9416C3B1E3480530023A5D7 /* WFAddCityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9416C3A1E3480530023A5D7 /* WFAddCityTableViewCell.swift */; };
+		C95CDC611E35C578008668A7 /* WFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CDC601E35C578008668A7 /* WFError.swift */; };
 		C963196E1E2FA8AD003A0CCD /* WFConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C963196D1E2FA8AD003A0CCD /* WFConstants.swift */; };
 		C97D95591E2CC2D00087516D /* WFCityWeatherListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D95581E2CC2D00087516D /* WFCityWeatherListViewController.swift */; };
 		C97D955B1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D955A1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift */; };
 		C97D955D1E2CEF920087516D /* WFCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D955C1E2CEF920087516D /* WFCity.swift */; };
-		C97D955F1E2CF03D0087516D /* WFWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D955E1E2CF03D0087516D /* WFWeather.swift */; };
+		C97D955F1E2CF03D0087516D /* WFCityWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97D955E1E2CF03D0087516D /* WFCityWeather.swift */; };
 		C98F7EB81E31D19A0074EE8E /* WFWeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F7EB71E31D19A0074EE8E /* WFWeatherAPI.swift */; };
 		C98F7EBA1E31D1C60074EE8E /* WFFlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F7EB91E31D1C60074EE8E /* WFFlickrAPI.swift */; };
 		C98F7EBC1E31D34C0074EE8E /* WFFlickrPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F7EBB1E31D34C0074EE8E /* WFFlickrPhoto.swift */; };
@@ -57,11 +58,12 @@
 		C92C05E51E2893FB003F060D /* WFSearchCity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFSearchCity.swift; path = Source/Model/WFSearchCity.swift; sourceTree = "<group>"; };
 		C92C05E91E289410003F060D /* WFAddCityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFAddCityViewController.swift; path = Source/Controller/WFAddCityViewController.swift; sourceTree = "<group>"; };
 		C9416C3A1E3480530023A5D7 /* WFAddCityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFAddCityTableViewCell.swift; path = Source/View/WFAddCityTableViewCell.swift; sourceTree = "<group>"; };
+		C95CDC601E35C578008668A7 /* WFError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFError.swift; path = Source/Helper/WFError.swift; sourceTree = "<group>"; };
 		C963196D1E2FA8AD003A0CCD /* WFConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFConstants.swift; path = Source/Helper/WFConstants.swift; sourceTree = "<group>"; };
 		C97D95581E2CC2D00087516D /* WFCityWeatherListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFCityWeatherListViewController.swift; path = Source/Controller/WFCityWeatherListViewController.swift; sourceTree = "<group>"; };
 		C97D955A1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFCityWeatherListTableViewCell.swift; path = Source/View/WFCityWeatherListTableViewCell.swift; sourceTree = "<group>"; };
 		C97D955C1E2CEF920087516D /* WFCity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFCity.swift; path = Source/Model/WFCity.swift; sourceTree = "<group>"; };
-		C97D955E1E2CF03D0087516D /* WFWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFWeather.swift; path = Source/Model/WFWeather.swift; sourceTree = "<group>"; };
+		C97D955E1E2CF03D0087516D /* WFCityWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFCityWeather.swift; path = Source/Model/WFCityWeather.swift; sourceTree = "<group>"; };
 		C98F7EB71E31D19A0074EE8E /* WFWeatherAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFWeatherAPI.swift; path = Source/API/WFWeatherAPI.swift; sourceTree = "<group>"; };
 		C98F7EB91E31D1C60074EE8E /* WFFlickrAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFFlickrAPI.swift; path = Source/API/WFFlickrAPI.swift; sourceTree = "<group>"; };
 		C98F7EBB1E31D34C0074EE8E /* WFFlickrPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WFFlickrPhoto.swift; path = Source/Model/WFFlickrPhoto.swift; sourceTree = "<group>"; };
@@ -189,7 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				C97D955C1E2CEF920087516D /* WFCity.swift */,
-				C97D955E1E2CF03D0087516D /* WFWeather.swift */,
+				C97D955E1E2CF03D0087516D /* WFCityWeather.swift */,
 				C92C05E51E2893FB003F060D /* WFSearchCity.swift */,
 				C98F7EBB1E31D34C0074EE8E /* WFFlickrPhoto.swift */,
 			);
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				C92C05E11E2893C7003F060D /* WFWebServiceManager.swift */,
+				C95CDC601E35C578008668A7 /* WFError.swift */,
 				C963196D1E2FA8AD003A0CCD /* WFConstants.swift */,
 			);
 			name = Helper;
@@ -399,6 +402,7 @@
 				C97D955B1E2CC3B70087516D /* WFCityWeatherListTableViewCell.swift in Sources */,
 				C9CC037F1E2DDFF40027A732 /* WFCityWeatherTableViewCell.swift in Sources */,
 				C98F7EBC1E31D34C0074EE8E /* WFFlickrPhoto.swift in Sources */,
+				C95CDC611E35C578008668A7 /* WFError.swift in Sources */,
 				C92C05B81E28917B003F060D /* AppDelegate.swift in Sources */,
 				C98F7EB81E31D19A0074EE8E /* WFWeatherAPI.swift in Sources */,
 				C92C05E21E2893C7003F060D /* WFWebServiceManager.swift in Sources */,
@@ -409,7 +413,7 @@
 				C97D95591E2CC2D00087516D /* WFCityWeatherListViewController.swift in Sources */,
 				C963196E1E2FA8AD003A0CCD /* WFConstants.swift in Sources */,
 				C92C05E61E2893FB003F060D /* WFSearchCity.swift in Sources */,
-				C97D955F1E2CF03D0087516D /* WFWeather.swift in Sources */,
+				C97D955F1E2CF03D0087516D /* WFCityWeather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

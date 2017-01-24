@@ -13,15 +13,15 @@ import SwiftyJSON
 class WFCity: Equatable {
     
     let cityName: String?
-    let currentWeather: WFCurrentWeather?
-    let forecastWeather: [WFWeather]?
+    let currentWeather: WFCurrentCityWeather?
+    let forecastWeathers: [WFCityWeather]?
     
     //This initializer is used for parsing the API response
     init(object: AnyObject) {
         let jsonObject = JSON(object)
         self.cityName = jsonObject["request",0,"query"].string
-        self.currentWeather = WFCurrentWeather.constructModel(jsonObject.dictionaryObject)
-        self.forecastWeather = WFWeather.constructModel(jsonObject.dictionaryObject)
+        self.currentWeather = WFCurrentCityWeather.constructModel(jsonObject.dictionaryObject)
+        self.forecastWeathers = WFCityWeather.constructModel(jsonObject.dictionaryObject)
     }
     
     static func constructModel(data: [String: AnyObject]?) -> WFCity? {

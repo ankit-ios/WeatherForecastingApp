@@ -14,7 +14,7 @@ class WFCityWeatherTableViewCell: UITableViewCell {
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var tempLabel: UILabel!
     
-    func configureCell(with weather: WFWeather, tempUnit: TempUnit) {
+    func configureCell(with weather: WFCityWeather, tempUnit: TempUnit) {
         dateLabel.text = convertDateFormate(weather.date ?? "")
         
         let tempInCelsius = "\(weather.maxTempInCelsius ?? "") ºC / \(weather.minTempInCelsius ?? "") ºC"

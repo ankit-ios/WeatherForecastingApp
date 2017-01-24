@@ -1,5 +1,5 @@
 //
-//  WFWeatherAPI.swift
+//  WFCityWeatherAPI.swift
 //  WeatherForecast
 //
 //  Created by Ankit Sharma on 18/01/17.
@@ -13,7 +13,7 @@ Getting URL from API
  - SearchCity:  url for all searched city
  - CityWeather: url for weather of given city
  */
-enum WFWeatherAPI {
+enum WFCityWeatherAPI {
     
     case SearchCity(searchString: String)
     case CityWeather(cityName: String)
